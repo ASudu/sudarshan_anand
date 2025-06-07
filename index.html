@@ -8,25 +8,6 @@
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 
-<!-- Vanta.js + Three.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
-
-<script>
-  VANTA.NET({
-    el: "body",
-    mouseControls: true,
-    touchControls: true,
-    gyroControls: false,
-    minHeight: 200.00,
-    minWidth: 200.00,
-    scale: 1.0,
-    scaleMobile: 1.0,
-    color: 0x6677ff,
-    backgroundColor: 0x0a0a23
-  })
-</script>
-
 <body>
   <div class="container">
     <header>
@@ -57,6 +38,25 @@
         </p>
       </section>
     </main>
+
+    <!-- Vanta.js Live Wallpaper Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+
+    <script>
+      VANTA.FOG({
+        el: "body",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.0,
+        scaleMobile: 1.0,
+        color: 0x6677ff,
+        backgroundColor: 0x0a0a23
+      })
+    </script>
 
     <footer>
       <p>© 2025 Sudarshan Anand</p>
