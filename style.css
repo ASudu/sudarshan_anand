@@ -1,34 +1,29 @@
-body {
+html, body {
+  height: 100%;
   margin: 0;
   font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(-90deg, #150b45, #67167f, #6763d7, #64afff);
+  background: linear-gradient(-45deg, #150b45, #8a2be2, #4b0082, #00bfff);
   background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+  animation: gradientBG 30s ease infinite;
   color: #333;
+  padding: 2rem; /* add breathing room */
 }
 
 @keyframes gradientBG {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-
 
 .container {
   max-width: 800px;
   margin: auto;
   padding: 2rem;
-  background: white; /* Keeps content area clean */
+  background: white;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  margin-top: 2rem;
   border-radius: 10px;
 }
+
 
 header {
   text-align: center;
