@@ -4,7 +4,7 @@ const centerX = width / 2;
 const centerY = height / 2;
 
 const tabs = [
-  { id: "Home", content: "Hey, I'm Sudarshan Anand" },
+  { id: "Home", content: "Hey,\n I'm Sudarshan Anand" },
   { id: "Projects", content: "Here are my Projects." },
   { id: "Publications", content: "Publications go here." },
   { id: "Blog", content: "My personal blog and notes." },
@@ -25,8 +25,8 @@ const labelGap = 30;
 const spokes = rotatingG.selectAll("line")
   .data(tabs)
   .join("line")
-  .attr("stroke", "rgba(127, 255, 249, 1)")
-  .attr("stroke-width", 2);
+  .attr("stroke", "rgb(29, 255, 221)")
+  .attr("stroke-width", 3);
 
 // STATIC group for labels
 const labelsG = svg.append("g").attr("id", "labelsGroup");
@@ -50,7 +50,9 @@ const tabLabels = labelsG.selectAll("text")
     document.getElementById("tab-content").innerText = content;
 
     tabLabels.attr("font-weight", t => (t.id === d.id ? "bold" : "normal"));
-  });
+  })
+  .attr("x", d => centerX + Math.cos(d.angle || 0) * (spokeLength + labelGap))
+  .attr("y", d => centerY + Math.sin(d.angle || 0) * (spokeLength + labelGap));
 
 // STATIC GROUP for center photo and circle
 const staticG = svg.append("g")
@@ -58,7 +60,7 @@ const staticG = svg.append("g")
 
 staticG.append("circle")
   .attr("r", 60)
-  .attr("fill", "rgba(127, 255, 249, 1)");
+  .attr("fill", "rgb(29, 255, 221)");
 
 staticG.append("clipPath")
   .attr("id", "profileClip")
@@ -74,7 +76,7 @@ staticG.append("image")
   .attr("width", 120)
   .attr("height", 120)
   .attr("clip-path", "url(#profileClip)")
-  .attr("preserveAspectRatio", "xMidYMid slice");
+  .attr("preserveAspectRatio", "xMidYMid meet");
 
 // ==== Tab layout logic ====
 let currentRotation = 0;
