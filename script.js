@@ -42,14 +42,22 @@ const tabLabels = g.selectAll("text")
     document.getElementById("tab-content").innerText = d.content;
   });
 
-// Profile image at center
+// Profile image at center, cropped to a circle using a clipPath
+g.append("clipPath")
+  .attr("id", "profileClip")
+  .append("circle")
+  .attr("cx", 0)
+  .attr("cy", 0)
+  .attr("r", 60);
+
 g.append("svg:image")
-  .attr("xlink:href", "assets/images/sudarshan.jpg")
+  .attr("xlink:href", "assets/images/sudarshan.svg")
   .attr("x", -60)
   .attr("y", -60)
   .attr("width", 120)
   .attr("height", 120)
-  .attr("class", "profile-img");
+  .attr("class", "profile-img")
+  .attr("clip-path", "url(#profileClip)");
 
 // Initial layout
 function positionTabs(rotation = 0) {
