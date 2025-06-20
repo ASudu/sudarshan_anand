@@ -4,11 +4,11 @@ const centerX = width / 2;
 const centerY = height / 2;
 
 const tabs = [
-  { id: "Home", content: "Hey,\n I'm Sudarshan Anand" },
-  { id: "Projects", content: "Here are my Projects." },
-  { id: "Publications", content: "Publications go here." },
-  { id: "Blog", content: "My personal blog and notes." },
-  { id: "Contact", content: "Reach out to me via email or LinkedIn." }
+  { id: "Home", content: "Hey,\n I'm Sudarshan Anand", angle: Math.PI },
+  { id: "Projects", content: "Here are my Projects." , angle: (3/5) * Math.PI },
+  { id: "Publications", content: "Publications go here.", angle: (1/5) * Math.PI },
+  { id: "Blog", content: "My personal blog and notes.", angle: (9/5) * Math.PI },
+  { id: "Contact", content: "Reach out to me via email or LinkedIn.", angle: (7/5) * Math.PI },
 ];
 
 const svg = d3.select("#mindmap");
@@ -19,7 +19,7 @@ const rotatingG = svg.append("g")
   .attr("transform", `translate(${centerX}, ${centerY})`);
 
 const spokeLength = 160;
-const labelGap = 30;
+const labelGap = 20;
 
 // Add spokes
 const spokes = rotatingG.selectAll("line")
