@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Navigation</title>
+  <style>
+    body {
+      margin: 0;
+      background: #10013a;
+      color: #7ffff9;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .test-container {
+      width: 500px;
+      height: 500px;
+      position: relative;
+      border: 2px solid #7ffff9;
+    }
+    
+    .center-image {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 4px solid #7ffff9;
+      background: #7ffff9;
+      z-index: 10;
+    }
+    
+    .spoke-system {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      transition: transform 1.2s ease;
+      z-index: 5;
+    }
+    
+    .spoke {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: 0 0;
+      cursor: pointer;
+      z-index: 6;
+    }
+    
+    .spoke-line {
+      position: absolute;
+      width: 180px;
+      height: 2px;
+      background: #7ffff9;
+      transform-origin: left center;
+    }
+    
+    .spoke-label {
+      position: absolute;
+      left: 190px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: #7ffff9;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+    
+    .spoke[data-angle="180"] {
+      transform: rotate(180deg);
+    }
+    
+    .spoke[data-angle="120"] {
+      transform: rotate(120deg);
+    }
+    
+    .spoke[data-angle="60"] {
+      transform: rotate(60deg);
+    }
+    
+    .spoke[data-angle="330"] {
+      transform: rotate(330deg);
+    }
+    
+    .spoke[data-angle="270"] {
+      transform: rotate(270deg);
+    }
+    
+    .spoke[data-angle="180"] .spoke-label {
+      transform: translateY(-50%) rotate(-180deg);
+    }
+    
+    .spoke[data-angle="120"] .spoke-label {
+      transform: translateY(-50%) rotate(-120deg);
+    }
+    
+    .spoke[data-angle="60"] .spoke-label {
+      transform: translateY(-50%) rotate(-60deg);
+    }
+    
+    .spoke[data-angle="330"] .spoke-label {
+      transform: translateY(-50%) rotate(-330deg);
+    }
+    
+    .spoke[data-angle="270"] .spoke-label {
+      transform: translateY(-50%) rotate(-270deg);
+    }
+    
+    .spoke.active .spoke-label {
+      font-weight: bold;
+      font-size: 20px;
+      text-shadow: 0 0 10px #7ffff9;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <div class="center-image"></div>
+    <div class="spoke-system" id="spokeSystem">
+      <div class="spoke active" data-angle="180">
+        <div class="spoke-line"></div>
+        <div class="spoke-label">Home</div>
+      </div>
+      <div class="spoke" data-angle="120">
+        <div class="spoke-line"></div>
+        <div class="spoke-label">Contact</div>
+      </div>
+      <div class="spoke" data-angle="60">
+        <div class="spoke-line"></div>
+        <div class="spoke-label">Blog</div>
+      </div>
+      <div class="spoke" data-angle="330">
+        <div class="spoke-line"></div>
+        <div class="spoke-label">Projects</div>
+      </div>
+      <div class="spoke" data-angle="270">
+        <div class="spoke-line"></div>
+        <div class="spoke-label">Publications</div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    let currentRotation = 0;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      const spokes = document.querySelectorAll('.spoke');
+      const spokeSystem = document.getElementById('spokeSystem');
+      
+      spokes.forEach(spoke => {
+        spoke.addEventListener('click', function() {
+          const targetAngle = parseFloat(this.getAttribute('data-angle'));
+          const rotationNeeded = 180 - targetAngle;
+          currentRotation += rotationNeeded;
+          
+          spokeSystem.style.transform = `rotate(${currentRotation}deg)`;
+          
+          // Update labels
+          spokes.forEach(s => {
+            const originalAngle = parseFloat(s.getAttribute('data-angle'));
+            const newAngle = originalAngle + currentRotation;
+            const label = s.querySelector('.spoke-label');
+            
+            if (label) {
+              label.style.transform = `translateY(-50%) rotate(${-newAngle}deg)`;
+            }
+            
+            s.classList.remove('active');
+          });
+          
+          this.classList.add('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
