@@ -4,23 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sudarshan Anand</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
   <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
-  <div class="main-container">
-    <div class="left-column" id="text-display">
-      <div id="tab-content" style="position: absolute; left: 5%; top: 50%; transform: translateY(-50%); color: white; width: 30%;">
-        <h2>Hey,</h2>
-        <h2>I am Sudarshan Anand</h2>
-      </div>
-      <div id="tab-content"></div>
+  <div class="container">
+    <!-- Left Column -->
+    <div id="tab-content" class="left-column">
+      Hey, I'm Sudarshan Anand
     </div>
 
+    <!-- Right Column: Mindmap SVG -->
     <div class="right-column">
-      <svg id="mindmap" width="100%" height="100%" style="background-color: #10013a;"></svg>
+      <svg id="mindmap" width="100%" height="100%"></svg>
     </div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>

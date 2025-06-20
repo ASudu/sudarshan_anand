@@ -4,7 +4,7 @@ const centerX = width / 2;
 const centerY = height / 2;
 
 const tabs = [
-  { id: "About", content: "This is the About section." },
+  { id: "Home", content: "Hey, I'm Sudarshan Anand" },
   { id: "Projects", content: "Here are my Projects." },
   { id: "Publications", content: "Publications go here." },
   { id: "Blog", content: "My personal blog and notes." },
@@ -13,65 +13,23 @@ const tabs = [
 
 const svg = d3.select("#mindmap");
 
-// === ROTATING GROUP with CIRCLE, PHOTO, and SPOKES ===
+// ROTATING GROUP for spokes
 const rotatingG = svg.append("g")
   .attr("id", "spokesGroup")
   .attr("transform", `translate(${centerX}, ${centerY})`);
 
-// Central green circle (attached to spokes)
-rotatingG.append("circle")
-  .attr("r", 60)
-  .attr("fill", "rgba(127, 255, 249, 1)");
-
-// Circular profile photo slightly offset for style
-rotatingG.append("clipPath")
-  .attr("id", "profileClip")
-  .append("circle")
-  .attr("cx", 0)
-  .attr("cy", 0)
-  .attr("r", 60);
-
-rotatingG.append("image")
-  .attr("xlink:href", "assets/images/sudarshan_profile.svg")
-  .attr("x", -60)
-  .attr("y", -60)
-  .attr("width", 120)
-  .attr("height", 120)
-  .attr("clip-path", "url(#profileClip)")
-  .attr("class", "profile-img")
-  .attr("preserveAspectRatio", "xMidYMid slice");
-
-// === SPOKES ===
 const spokeLength = 160;
 const labelGap = 30;
 
+// Add spokes
 const spokes = rotatingG.selectAll("line")
   .data(tabs)
   .join("line")
   .attr("stroke", "rgba(127, 255, 249, 1)")
   .attr("stroke-width", 2);
 
-// === LABELS OUTSIDE ROTATION ===
+// STATIC group for labels
 const labelsG = svg.append("g").attr("id", "labelsGroup");
-
-// Set font color
-svg.select("style").remove();
-svg.append("style").text(`
-  .tab-text {
-    fill: rgba(127, 255, 249, 1);
-    font-size: 1rem;
-    transition: transform 0.3s;
-  }
-
-  .tab-text:hover {
-    font-weight: bold;
-    transform: scale(1.2);
-  }
-
-  .profile-img {
-    filter: drop-shadow(0 0 8px rgba(127, 255, 249, 1));
-  }
-`);
 
 const tabLabels = labelsG.selectAll("text")
   .data(tabs)
@@ -88,10 +46,37 @@ const tabLabels = labelsG.selectAll("text")
   })
   .on("click", function (event, d) {
     rotateToTab(d);
-    document.getElementById("tab-content").innerText = d.content;
+    const content = d.id === "Home" ? "Hey, I'm Sudarshan Anand" : d.content;
+    document.getElementById("tab-content").innerText = content;
+
+    tabLabels.attr("font-weight", t => (t.id === d.id ? "bold" : "normal"));
   });
 
-// === POSITIONING ===
+// STATIC GROUP for center photo and circle
+const staticG = svg.append("g")
+  .attr("transform", `translate(${centerX}, ${centerY})`);
+
+staticG.append("circle")
+  .attr("r", 60)
+  .attr("fill", "rgba(127, 255, 249, 1)");
+
+staticG.append("clipPath")
+  .attr("id", "profileClip")
+  .append("circle")
+  .attr("cx", 0)
+  .attr("cy", 0)
+  .attr("r", 60);
+
+staticG.append("image")
+  .attr("xlink:href", "assets/images/sudarshan_profile.svg")
+  .attr("x", -60)
+  .attr("y", -60)
+  .attr("width", 120)
+  .attr("height", 120)
+  .attr("clip-path", "url(#profileClip)")
+  .attr("preserveAspectRatio", "xMidYMid slice");
+
+// ==== Tab layout logic ====
 let currentRotation = 0;
 
 function positionTabs(rotation = 0) {
@@ -116,7 +101,7 @@ function positionTabs(rotation = 0) {
     .attr("y", d => d.y)
     .attr("transform", d => {
       const deg = (d.labelAngle * 180) / Math.PI;
-      return `rotate(${-deg},${d.x},${d.y})`;
+      return `rotate(${-deg},${d.x},${d.y})`; // Ferris wheel upright
     });
 }
 
@@ -124,9 +109,11 @@ function rotateToTab(selectedTab) {
   const angleStep = (2 * Math.PI) / tabs.length;
   const tabIndex = tabs.findIndex(t => t.id === selectedTab.id);
   const tabAngle = tabIndex * angleStep + currentRotation;
-  const desiredAngle = Math.PI; // want tab to align on left (180deg)
+  const desiredAngle = Math.PI;
 
-  const delta = desiredAngle - tabAngle;
+  let delta = desiredAngle - tabAngle;
+  if (delta > 0) delta -= 2 * Math.PI; // Always rotate counterclockwise
+
   const startRotation = currentRotation;
   const endRotation = currentRotation + delta;
 
@@ -151,5 +138,6 @@ function rotateToTab(selectedTab) {
   currentRotation = endRotation;
 }
 
-// Initial draw
+// Initial layout
 positionTabs(currentRotation);
+rotateToTab(tabs[0]); // Set "Home" by default
