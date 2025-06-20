@@ -13,18 +13,46 @@ const tabs = [
 
 const svg = d3.select("#mindmap");
 
+// Outer static group (for static circle and profile)
+const staticG = svg.append("g")
+  .attr("transform", `translate(${centerX}, ${centerY})`);
+
+// Central bevel-colored circle
+staticG.append("circle")
+  .attr("r", 70)
+  .attr("fill", "rgba(127, 255, 249, 1)");
+
+// Circular clipping mask for profile image
+staticG.append("clipPath")
+  .attr("id", "profileClip")
+  .append("circle")
+  .attr("cx", 10)   // slight offset for aesthetics
+  .attr("cy", -10)
+  .attr("r", 60);
+
+// Profile image with slight offset
+staticG.append("svg:image")
+  .attr("xlink:href", "assets/images/sudarshan.svg")
+  .attr("x", -50)
+  .attr("y", -70)
+  .attr("width", 120)
+  .attr("height", 120)
+  .attr("clip-path", "url(#profileClip)")
+  .attr("class", "profile-img");
+
+// Dynamic group for rotating content
 const g = svg.append("g")
   .attr("transform", `translate(${centerX}, ${centerY})`)
   .attr("id", "mapGroup");
 
-// Add spokes (lines)
+// Spokes
 const spokes = g.selectAll("line")
   .data(tabs)
   .join("line")
   .attr("stroke", "rgba(127, 255, 249, 1)")
   .attr("stroke-width", 2);
 
-// Tab labels
+// Labels
 const tabLabels = g.selectAll("text")
   .data(tabs)
   .join("text")
@@ -37,29 +65,12 @@ const tabLabels = g.selectAll("text")
   .on("mouseout", function () {
     d3.select(this).attr("font-weight", "normal");
   })
-  .on("click", function (event, d, i) {
+  .on("click", function (event, d) {
     rotateToTab(d);
     document.getElementById("tab-content").innerText = d.content;
   });
 
-// Profile image at center, cropped to a circle using a clipPath
-g.append("clipPath")
-  .attr("id", "profileClip")
-  .append("circle")
-  .attr("cx", 0)
-  .attr("cy", 0)
-  .attr("r", 60);
-
-g.append("svg:image")
-  .attr("xlink:href", "assets/images/sudarshan.svg")
-  .attr("x", -60)
-  .attr("y", -60)
-  .attr("width", 120)
-  .attr("height", 120)
-  .attr("class", "profile-img")
-  .attr("clip-path", "url(#profileClip)");
-
-// Initial layout
+// Positioning tabs
 function positionTabs(rotation = 0) {
   const angleStep = (2 * Math.PI) / tabs.length;
 
@@ -87,9 +98,8 @@ let currentRotation = 0;
 
 function rotateToTab(selectedTab) {
   const targetAngle = Math.atan2(selectedTab.y, selectedTab.x);
-  const desiredAngle = Math.PI; // Left direction
+  const desiredAngle = Math.PI; // align selected tab to left
   const delta = desiredAngle - targetAngle;
-
   currentRotation += delta;
 
   g.transition()
