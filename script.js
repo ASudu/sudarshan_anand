@@ -32,7 +32,7 @@ rotatingG.append("clipPath")
   .attr("r", 60);
 
 rotatingG.append("image")
-  .attr("xlink:href", "assets/images/sudarshan.svg")
+  .attr("xlink:href", "assets/images/sudarshan_profile.svg")
   .attr("x", -60)
   .attr("y", -60)
   .attr("width", 120)
