@@ -1,31 +1,33 @@
-const spokes = document.querySelectorAll(".spoke");
-let currentAngle = 0;
+const rotatable = document.getElementById("rotatable");
+const tabs = document.querySelectorAll(".tab");
 
-function angleOf(tab) {
-  return parseFloat(tab.style.getPropertyValue("--angle"));
-}
-
-function rotateTo(targetAngle) {
-  const offset = 180 - targetAngle; // bring selected tab to pi (180 deg)
-  currentAngle += offset;
-
-  document.querySelector(".spoke-system").style.transform = `rotate(${currentAngle}deg)`;
-
-  spokes.forEach(spoke => {
-    const angle = angleOf(spoke);
-    spoke.style.setProperty("--angle", `${(angle + offset + 360) % 360}deg`);
-    spoke.classList.remove("active");
-  });
-}
-
-spokes.forEach(spoke => {
-  spoke.addEventListener("click", () => {
-    rotateTo(angleOf(spoke));
-    spoke.classList.add("active");
-  });
-
-  // Apply hover effects via CSS only
+tabs.forEach(tab => {
+  const angle = tab.getAttribute("data-angle");
+  tab.style.setProperty("--angle", `${angle}deg`);
+  tab.style.transform = `rotate(${angle}deg) translateX(150px) rotate(-${angle}deg)`;
 });
 
-// Set default active tab to Home
-document.querySelector(".spoke[data-tab='Home']").classList.add("active");
+function rotateTo(angle) {
+  const rotation = 180 - angle; // bring to pi
+  rotatable.style.transform = `rotate(${rotation}deg)`;
+
+  tabs.forEach(tab => {
+    const tabAngle = parseFloat(tab.getAttribute("data-angle"));
+    const newAngle = (tabAngle + rotation + 360) % 360;
+    tab.style.setProperty("--angle", `${newAngle}deg`);
+    tab.style.transform = `rotate(${newAngle}deg) translateX(150px) rotate(-${newAngle}deg)`;
+    tab.classList.remove("active");
+  });
+}
+
+tabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    const angle = parseFloat(tab.getAttribute("data-angle"));
+    rotateTo(angle);
+    tab.classList.add("active");
+  });
+});
+
+// Set "Home" active by default
+const homeTab = document.querySelector(".tab[data-angle='180']");
+homeTab.classList.add("active");
