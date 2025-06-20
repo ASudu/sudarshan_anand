@@ -1,39 +1,69 @@
 body {
   margin: 0;
   background-color: #10013a;
-  font-family: Arial, sans-serif;
   color: #7ffff9;
+  font-family: sans-serif;
   overflow: hidden;
+  height: 100vh;
 }
 
 .container {
   display: flex;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
 }
 
-.left-column {
-  width: 40%;
-  padding: 60px;
-  font-size: 3em;
-  line-height: 1.2;
+.left-panel {
+  flex: 1;
   display: flex;
   align-items: center;
-  color: #7ffff9;
+  justify-content: center;
+  padding-left: 5%;
+  font-size: 3vw;
 }
 
-.right-column {
-  width: 60%;
+.right-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
 }
 
-#mindmap {
-  width: 100%;
-  height: 100%;
+.spoke-system {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  transition: transform 1s ease-in-out;
 }
 
-.tab-text {
+.center-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 4px solid #7ffff9;
+  box-shadow: 0 0 20px #7ffff9;
+  position: absolute;
+  top: 75px;
+  left: 75px;
+  z-index: 1;
+}
+
+.spoke {
+  position: absolute;
+  transform-origin: center center;
+  transform: rotate(var(--angle)) translate(150px) rotate(calc(-1 * var(--angle)));
+  transition: all 0.3s ease;
   font-size: 1.2em;
-  fill: #7ffff9;
   cursor: pointer;
+}
+
+.spoke:hover {
+  font-weight: bold;
+  transform: rotate(var(--angle)) translate(150px) rotate(calc(-1 * var(--angle))) scale(1.2);
+}
+
+.spoke.active {
+  font-weight: bold;
+  transform: rotate(var(--angle)) translate(150px) rotate(calc(-1 * var(--angle))) scale(1.4);
 }

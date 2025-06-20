@@ -2,21 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sudarshan Anand</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <!-- Left Column -->
-    <div id="tab-content" class="left-column">
-      Hey, I'm Sudarshan Anand
+    <div class="left-panel">
+      <h1>Hey,<br />I'm Sudarshan Anand</h1>
     </div>
-
-    <!-- Right Column: Mindmap SVG -->
-    <div class="right-column">
-      <svg id="mindmap" width="100%" height="100%"></svg>
+    <div class="right-panel">
+      <div class="spoke-system">
+        <img src="assets/profile.png" alt="Profile" class="center-image" />
+        <div class="spoke" data-tab="Home" style="--angle: 180deg;">Home</div>
+        <div class="spoke" data-tab="Contact" style="--angle: 120deg;">Contact</div>
+        <div class="spoke" data-tab="Blog" style="--angle: 60deg;">Blog</div>
+        <div class="spoke" data-tab="Projects" style="--angle: 330deg;">Projects</div>
+        <div class="spoke" data-tab="Publications" style="--angle: 270deg;">Publications</div>
+      </div>
     </div>
   </div>
 
