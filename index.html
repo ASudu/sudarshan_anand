@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sudarshan Anand</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -14,11 +15,26 @@
       <div class="mindmap">
         <img src="assets/images/sudarshan_profile.svg" class="center-image" />
         <div class="spoke-system" id="spokeSystem">
-          <div class="spoke" data-angle="180">Home</div>
-          <div class="spoke" data-angle="120">Contact</div>
-          <div class="spoke" data-angle="60">Blog</div>
-          <div class="spoke" data-angle="330">Projects</div>
-          <div class="spoke" data-angle="270">Publications</div>
+          <div class="spoke active" data-angle="180" data-page="home">
+            <div class="spoke-line"></div>
+            <div class="spoke-label">Home</div>
+          </div>
+          <div class="spoke" data-angle="120" data-page="contact">
+            <div class="spoke-line"></div>
+            <div class="spoke-label">Contact</div>
+          </div>
+          <div class="spoke" data-angle="60" data-page="blog">
+            <div class="spoke-line"></div>
+            <div class="spoke-label">Blog</div>
+          </div>
+          <div class="spoke" data-angle="330" data-page="projects">
+            <div class="spoke-line"></div>
+            <div class="spoke-label">Projects</div>
+          </div>
+          <div class="spoke" data-angle="270" data-page="publications">
+            <div class="spoke-line"></div>
+            <div class="spoke-label">Publications</div>
+          </div>
         </div>
       </div>
     </div>
