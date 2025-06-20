@@ -26,7 +26,11 @@ const spokes = rotatingG.selectAll("line")
   .data(tabs)
   .join("line")
   .attr("stroke", "rgb(29, 255, 221)")
-  .attr("stroke-width", 3);
+  .attr("stroke-width", 3)
+  .attr("x1", 0)
+  .attr("y1", 0)
+  .attr("x2", d => Math.cos(d.angle) * spokeLength)
+  .attr("y2", d => Math.sin(d.angle) * spokeLength);
 
 // STATIC group for labels
 const labelsG = svg.append("g").attr("id", "labelsGroup");
@@ -46,10 +50,12 @@ const tabLabels = labelsG.selectAll("text")
   })
   .on("click", function (event, d) {
     rotateToTab(d);
-    const content = d.id === "Home" ? "Hey, I'm Sudarshan Anand" : d.content;
+    const content = d.id === "Home" ? "Hey,\n I'm Sudarshan Anand" : d.content;
     document.getElementById("tab-content").innerText = content;
 
-    tabLabels.attr("font-weight", t => (t.id === d.id ? "bold" : "normal"));
+    tabLabels
+      .attr("font-weight", t => (t.id === d.id ? "bold" : "normal"))
+      .attr("font-size", t => (t.id === d.id ? "2em" : "1em"));
   })
   .attr("x", d => centerX + Math.cos(d.angle || 0) * (spokeLength + labelGap))
   .attr("y", d => centerY + Math.sin(d.angle || 0) * (spokeLength + labelGap));
