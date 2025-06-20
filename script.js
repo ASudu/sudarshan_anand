@@ -37,7 +37,8 @@ staticG.append("image")
   .attr("width", 120)
   .attr("height", 120)
   .attr("clip-path", "url(#profileClip)")
-  .attr("class", "profile-img");
+  .attr("class", "profile-img")
+  .attr("preserveAspectRatio", "xMidYMid slice");
 
 // === ROTATING SPOKES GROUP ===
 const rotatingG = svg.append("g")
@@ -45,6 +46,9 @@ const rotatingG = svg.append("g")
   .attr("transform", `translate(${centerX}, ${centerY})`);
 
 // Spokes
+const spokeLength = 160; // Length of the spoke
+const labelGap = 30;     // Gap between spoke end and label
+
 const spokes = rotatingG.selectAll("line")
   .data(tabs)
   .join("line")
@@ -53,6 +57,36 @@ const spokes = rotatingG.selectAll("line")
 
 // Static upright text group
 const labelsG = svg.append("g").attr("id", "labelsGroup");
+
+// Set font color for all tab labels to match the spokes
+svg.select("style").remove(); // Remove any previous style block if present
+svg.append("style").text(`
+  .tab-text {
+    fill: rgba(127, 255, 249, 1);
+  }
+`);
+
+// Update positionTabs to use spokeLength and labelGap
+function positionTabs(rotation = 0) {
+  const angleStep = (2 * Math.PI) / tabs.length;
+
+  tabs.forEach((d, i) => {
+    const angle = i * angleStep + rotation;
+    d.angle = angle;
+    d.x = centerX + Math.cos(angle) * (spokeLength + labelGap);
+    d.y = centerY + Math.sin(angle) * (spokeLength + labelGap);
+  });
+
+  spokes
+    .attr("x1", 0)
+    .attr("y1", 0)
+    .attr("x2", d => Math.cos(d.angle) * spokeLength)
+    .attr("y2", d => Math.sin(d.angle) * spokeLength);
+
+  tabLabels
+    .attr("x", d => d.x)
+    .attr("y", d => d.y);
+}
 
 // Labels
 const tabLabels = labelsG.selectAll("text")
@@ -74,49 +108,66 @@ const tabLabels = labelsG.selectAll("text")
   });
 
 // === TAB POSITIONING ===
+let currentRotation = 0;
+
+function rotateToTab(selectedTab) {
+  // Find the angle of the selected tab (relative to current rotation)
+  const angleStep = (2 * Math.PI) / tabs.length;
+  const tabIndex = tabs.findIndex(t => t.id === selectedTab.id);
+  const tabAngle = tabIndex * angleStep + currentRotation;
+  const desiredAngle = Math.PI; // left middle (180deg)
+
+  const delta = desiredAngle - tabAngle;
+  const startRotation = currentRotation;
+  const endRotation = currentRotation + delta;
+
+  // Animate spokes rotation
+  rotatingG.transition()
+    .duration(1000)
+    .attrTween("transform", function () {
+      return function (t) {
+        const rot = startRotation + (endRotation - startRotation) * t;
+        return `translate(${centerX}, ${centerY}) rotate(${(rot * 180) / Math.PI})`;
+      };
+    });
+
+  // Animate labels repositioning (no rotation)
+  d3.transition()
+    .duration(1000)
+    .tween("labelTween", () => {
+      return function (t) {
+        const rot = startRotation + (endRotation - startRotation) * t;
+        positionTabs(rot);
+      };
+    });
+
+  currentRotation = endRotation;
+}
+
 function positionTabs(rotation = 0) {
   const angleStep = (2 * Math.PI) / tabs.length;
 
   tabs.forEach((d, i) => {
     const angle = i * angleStep + rotation;
     d.angle = angle;
-    d.x = centerX + Math.cos(angle) * 180;
-    d.y = centerY + Math.sin(angle) * 180;
+    d.x = centerX + Math.cos(angle) * (spokeLength + labelGap);
+    d.y = centerY + Math.sin(angle) * (spokeLength + labelGap);
+    d.labelAngle = angle;
   });
 
   spokes
     .attr("x1", 0)
     .attr("y1", 0)
-    .attr("x2", d => Math.cos(d.angle) * 180)
-    .attr("y2", d => Math.sin(d.angle) * 180);
+    .attr("x2", d => Math.cos(d.angle) * spokeLength)
+    .attr("y2", d => Math.sin(d.angle) * spokeLength);
 
   tabLabels
     .attr("x", d => d.x)
-    .attr("y", d => d.y);
-}
-
-let currentRotation = 0;
-
-function rotateToTab(selectedTab) {
-  const targetAngle = Math.atan2(selectedTab.y - centerY, selectedTab.x - centerX);
-  const desiredAngle = Math.PI; // want tab to align on left
-  const delta = desiredAngle - targetAngle;
-
-  currentRotation += delta;
-
-  // Animate spokes rotation
-  rotatingG.transition()
-    .duration(1000)
-    .attr("transform", `translate(${centerX}, ${centerY}) rotate(${(currentRotation * 180) / Math.PI})`);
-
-  // Animate labels repositioning (no rotation)
-  d3.transition()
-    .duration(1000)
-    .tween("labelTween", () => {
-      const interpolate = d3.interpolate(0, delta);
-      return function (t) {
-        positionTabs(currentRotation - delta + interpolate(t));
-      };
+    .attr("y", d => d.y)
+    .attr("transform", d => {
+      // Keep label upright like a ferris wheel seat
+      const deg = (d.labelAngle * 180) / Math.PI;
+      return `rotate(${-deg},${d.x},${d.y})`;
     });
 }
 
