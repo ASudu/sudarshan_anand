@@ -1,4 +1,4 @@
-// Simple Ferris Wheel Navigation
+// Single Page Application with Ferris Wheel Navigation
 let currentRotation = 0;
 
 function initNavigation() {
@@ -13,64 +13,130 @@ function initNavigation() {
   console.log('Found', spokes.length, 'spokes');
   
   spokes.forEach(spoke => {
-    // Handle spoke rotation on click
+    // Handle spoke rotation and content switching
     spoke.addEventListener('click', function(e) {
-      // Prevent immediate navigation
-      e.preventDefault();
+      e.preventDefault(); // Prevent any default behavior
       
-      console.log('Spoke clicked:', this.getAttribute('data-angle'));
+      console.log('Spoke clicked:', this.getAttribute('data-page'));
       
       const targetAngle = parseFloat(this.getAttribute('data-angle'));
-      const rotationNeeded = 180 - targetAngle;
-      currentRotation += rotationNeeded;
+      const targetPage = this.getAttribute('data-page');
       
-      // Rotate the spoke system
-      spokeSystem.style.transform = `rotate(${currentRotation}deg)`;
-      
-      // Update all labels and active states
-      spokes.forEach(s => {
-        const originalAngle = parseFloat(s.getAttribute('data-angle'));
-        const newAngle = originalAngle + currentRotation;
-        const label = s.querySelector('.spoke-label');
+      // Only rotate if this spoke is not already active
+      if (!this.classList.contains('active')) {
+        const rotationNeeded = 180 - targetAngle;
+        currentRotation += rotationNeeded;
         
-        if (label) {
-          label.style.transform = `translateY(-50%) rotate(${-newAngle}deg)`;
-          // Store current rotation for hover/active states
-          s.style.setProperty('--current-label-rotation', `${-newAngle}deg`);
-        }
+        // Rotate the spoke system
+        spokeSystem.style.transform = `rotate(${currentRotation}deg)`;
         
-        s.classList.remove('active');
-      });
-      
-      this.classList.add('active');
-      
-      // Navigate to the page after rotation animation completes
-      const link = this.querySelector('.spoke-label');
-      if (link && link.href) {
+        // Update all labels and active states
+        spokes.forEach(s => {
+          const originalAngle = parseFloat(s.getAttribute('data-angle'));
+          const newAngle = originalAngle + currentRotation;
+          const label = s.querySelector('.spoke-label');
+          
+          if (label) {
+            label.style.transform = `translateY(-50%) rotate(${-newAngle}deg)`;
+            // Store current rotation for hover/active states
+            s.style.setProperty('--current-label-rotation', `${-newAngle}deg`);
+          }
+          
+          s.classList.remove('active');
+        });
+        
+        this.classList.add('active');
+        
+        // Switch content after a short delay to let rotation start
         setTimeout(() => {
-          window.location.href = link.href;
-        }, 1200); // Wait for rotation animation to complete
+          switchContent(targetPage);
+        }, 200);
+      } else {
+        // If already active, just switch content immediately
+        switchContent(targetPage);
       }
     });
     
-    // Handle direct link clicks (for accessibility)
+    // Handle label clicks
     const label = spoke.querySelector('.spoke-label');
     if (label) {
       label.addEventListener('click', function(e) {
-        // If the spoke is not active, prevent immediate navigation and trigger spoke rotation
-        if (!spoke.classList.contains('active')) {
-          e.preventDefault();
-          spoke.click(); // This will trigger the rotation and delayed navigation
-        }
-        // If the spoke is already active, allow normal navigation
+        e.preventDefault();
+        // Trigger the spoke click
+        spoke.click();
       });
     }
   });
+  
+  // Make profile image clickable to go to home
+  const profileImage = document.getElementById('profileImage');
+  if (profileImage) {
+    profileImage.addEventListener('click', function() {
+      const homeSpoke = document.querySelector('.spoke[data-page="home"]');
+      if (homeSpoke) {
+        homeSpoke.click();
+      }
+    });
+    
+    // Add cursor pointer to profile image
+    profileImage.style.cursor = 'pointer';
+  }
+}
+
+function switchContent(page) {
+  // Hide all content sections
+  const allContent = document.querySelectorAll('.page-content');
+  const targetContent = document.getElementById(`${page}-content`);
+  
+  // First, fade out current content
+  allContent.forEach(content => {
+    if (content.classList.contains('active')) {
+      content.classList.remove('active');
+    }
+  });
+  
+  // Then fade in target content after a short delay
+  setTimeout(() => {
+    if (targetContent) {
+      targetContent.classList.add('active');
+      // Update page title
+      document.title = `${page.charAt(0).toUpperCase() + page.slice(1)} - Sudarshan Anand`;
+      // Update URL hash
+      window.location.hash = page;
+    }
+  }, 250);
+}
+
+// Handle browser back/forward buttons
+window.addEventListener('hashchange', function() {
+  const hash = window.location.hash.slice(1) || 'home';
+  const targetSpoke = document.querySelector(`[data-page="${hash}"]`);
+  
+  if (targetSpoke && !targetSpoke.classList.contains('active')) {
+    targetSpoke.click();
+  }
+});
+
+// Handle initial page load with hash
+function handleInitialLoad() {
+  const hash = window.location.hash.slice(1) || 'home';
+  const targetSpoke = document.querySelector(`[data-page="${hash}"]`);
+  
+  if (targetSpoke && hash !== 'home') {
+    targetSpoke.click();
+  } else {
+    // Ensure home content is shown by default
+    switchContent('home');
+  }
 }
 
 // Initialize immediately if DOM is ready, or wait for it
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initNavigation);
+  document.addEventListener('DOMContentLoaded', function() {
+    initNavigation();
+    handleInitialLoad();
+  });
 } else {
   initNavigation();
+  handleInitialLoad();
 }
