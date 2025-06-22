@@ -42,8 +42,8 @@ body {
 
 .center-image {
   position: absolute;
-  width: 200px;
-  height: 200px;
+  width: 400px;
+  height: 400px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -117,7 +117,14 @@ body {
   text-shadow: 0 0 8px rgba(127, 255, 249, 0.6);
   transition: all 0.3s ease;
   white-space: nowrap;
-  pointer-events: none;
+  pointer-events: auto;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.spoke-label:hover {
+  color: #ffffff;
+  text-decoration: none;
 }
 
 /* Counter-rotate labels to keep them upright */
@@ -145,6 +152,8 @@ body {
   font-weight: bold;
   transform: translateY(-50%) scale(1.1) rotate(var(--current-label-rotation, 0deg));
   text-shadow: 0 0 12px rgba(127, 255, 249, 0.8);
+  color: #ffffff;
+  text-decoration: none;
 }
 
 .spoke.active .spoke-label {
@@ -152,6 +161,8 @@ body {
   transform: translateY(-50%) scale(1.15) rotate(var(--current-label-rotation, 0deg));
   text-shadow: 0 0 15px rgba(127, 255, 249, 1);
   font-size: 20px;
+  color: #ffffff;
+  text-decoration: none;
 }
 
 .spoke:hover .spoke-line {

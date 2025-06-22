@@ -13,7 +13,11 @@ function initNavigation() {
   console.log('Found', spokes.length, 'spokes');
   
   spokes.forEach(spoke => {
-    spoke.addEventListener('click', function() {
+    // Handle spoke rotation on click
+    spoke.addEventListener('click', function(e) {
+      // Prevent immediate navigation
+      e.preventDefault();
+      
       console.log('Spoke clicked:', this.getAttribute('data-angle'));
       
       const targetAngle = parseFloat(this.getAttribute('data-angle'));
@@ -39,7 +43,28 @@ function initNavigation() {
       });
       
       this.classList.add('active');
+      
+      // Navigate to the page after rotation animation completes
+      const link = this.querySelector('.spoke-label');
+      if (link && link.href) {
+        setTimeout(() => {
+          window.location.href = link.href;
+        }, 1200); // Wait for rotation animation to complete
+      }
     });
+    
+    // Handle direct link clicks (for accessibility)
+    const label = spoke.querySelector('.spoke-label');
+    if (label) {
+      label.addEventListener('click', function(e) {
+        // If the spoke is not active, prevent immediate navigation and trigger spoke rotation
+        if (!spoke.classList.contains('active')) {
+          e.preventDefault();
+          spoke.click(); // This will trigger the rotation and delayed navigation
+        }
+        // If the spoke is already active, allow normal navigation
+      });
+    }
   });
 }
 
