@@ -44,8 +44,8 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 150px;
-  height: 150px;
+  width: 250px;
+  height: 250px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: #10013a;
@@ -53,12 +53,11 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 10;
-  box-shadow: 0 0 12px rgba(127, 255, 249, 0.7); /* Optional glow */
 }
 
 .center-image {
-  width: 150px;
-  height: 150px;
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
   object-fit: cover;
   display: block;
