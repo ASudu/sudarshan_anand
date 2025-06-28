@@ -42,8 +42,8 @@ body {
 
 .center-wrapper {
   position: relative;
-  width: 250px;
-  height: 250px;
+  width: 400px;
+  height: 400px;
   transform: translate(-50%, -50%);
   background: #10013a;
   display: flex;
@@ -53,9 +53,9 @@ body {
 }
 
 .center-image {
-  width: 250px;
-  height: 250px;
-  object-fit: cover;
+  width: 400px;
+  height: 400px;
+  object-fit: 2cover;
   display: block;
 }
 
