@@ -50,30 +50,6 @@ function initNavigation() {
 
         this.classList.add('active');
 
-        // ✅ RESET rotation baseline to 0 for future clicks
-        setTimeout(() => {
-          spokeSystem.style.transition = 'none';
-          spokeSystem.style.transform = 'rotate(0deg)';
-          
-          spokes.forEach(s => {
-            const originalAngle = parseFloat(s.getAttribute('data-angle'));
-            const newAngle = originalAngle + currentRotation;
-            const label = s.querySelector('.spoke-label');
-            
-            if (label) {
-              label.style.transform = `translateY(-50%) rotate(${-originalAngle}deg)`;
-              s.style.setProperty('--current-label-rotation', `${-originalAngle}deg`);
-            }
-
-            // Reset spoke transform so it's ready for next rotation from 0
-          });
-
-          // Force reflow and re-enable transition
-          void spokeSystem.offsetWidth;
-          spokeSystem.style.transition = '';
-          currentRotation = 0;
-        }, 800); // Should match your transition duration
-
         // Load tab content slightly after rotation
         setTimeout(() => {
           switchContent(targetPage);
