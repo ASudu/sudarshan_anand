@@ -1,132 +1,138 @@
+// Single Page Application with Ferris Wheel Navigation
 let currentRotation = 0;
-let activeIndex = 0;
 
-// Initialize navigation and event listeners
 function initNavigation() {
   const spokes = document.querySelectorAll('.spoke');
   const spokeSystem = document.getElementById('spokeSystem');
-
+  
   if (!spokes.length || !spokeSystem) {
     console.error('Navigation elements not found');
     return;
   }
-
-  const totalSpokes = spokes.length;
-  const angleStep = 360 / totalSpokes;
-
-  // Assign angles and label click delegation
-  spokes.forEach((spoke, index) => {
-    const angle = index * angleStep;
-    spoke.setAttribute('data-angle', angle);
-    spoke.setAttribute('data-index', index);
-
+  
+  console.log('Found', spokes.length, 'spokes');
+  
+  spokes.forEach(spoke => {
+    // Handle spoke rotation and content switching
+    spoke.addEventListener('click', function(e) {
+      e.preventDefault(); // Prevent any default behavior
+      
+      console.log('Spoke clicked:', this.getAttribute('data-page'));
+      
+      const targetAngle = parseFloat(this.getAttribute('data-angle'));
+      const targetPage = this.getAttribute('data-page');
+      
+      // Only rotate if this spoke is not already active
+      if (!this.classList.contains('active')) {
+        const rotationNeeded = 180 - targetAngle;
+        currentRotation += rotationNeeded;
+        
+        // Rotate the spoke system
+        spokeSystem.style.transform = `rotate(${currentRotation}deg)`;
+        
+        // Update all labels and active states
+        spokes.forEach(s => {
+          const originalAngle = parseFloat(s.getAttribute('data-angle'));
+          const newAngle = originalAngle + currentRotation;
+          const label = s.querySelector('.spoke-label');
+          
+          if (label) {
+            label.style.transform = `translateY(-50%) rotate(${-newAngle}deg)`;
+            // Store current rotation for hover/active states
+            s.style.setProperty('--current-label-rotation', `${-newAngle}deg`);
+          }
+          
+          s.classList.remove('active');
+        });
+        
+        this.classList.add('active');
+        
+        // Switch content after a short delay to let rotation start
+        setTimeout(() => {
+          switchContent(targetPage);
+        }, 200);
+      } else {
+        // If already active, just switch content immediately
+        switchContent(targetPage);
+      }
+    });
+    
+    // Handle label clicks
     const label = spoke.querySelector('.spoke-label');
     if (label) {
-      // Delegate click from label to spoke
-      label.addEventListener('click', e => {
+      label.addEventListener('click', function(e) {
         e.preventDefault();
+        // Trigger the spoke click
         spoke.click();
       });
     }
   });
-
-  // Main click logic
-  spokes.forEach((spoke, index) => {
-    spoke.addEventListener('click', function (e) {
-      e.preventDefault();
-
-      if (activeIndex === index) {
-        // Same spoke clicked, just update content
-        switchContent(spoke.getAttribute('data-page'));
-        return;
-      }
-
-      let baseAngle = parseFloat(spoke.getAttribute('data-angle'));
-      baseAngle = ((baseAngle % 360) + 360) % 360; // Normalize to [0, 360)
-      console.log(`Clicked spoke at angle: ${baseAngle}°`);
-
-      // Compute new absolute rotation to bring clicked tab to 180° (left horizontal)
-      currentRotation = 180 - baseAngle;
-      spokeSystem.style.transform = `rotate(${currentRotation}deg)`;
-
-      // Update label orientation & active state
-      spokes.forEach((s, i) => {
-        const originalAngle = parseFloat(s.getAttribute('data-angle'));
-        // const totalAngle = originalAngle + currentRotation;
-        const label = s.querySelector('.spoke-label');
-        if (label) {
-          label.style.transform = `translateY(-50%) rotate(${-currentRotation}deg)`;
-        }
-
-        s.classList.toggle('active', i === index);
-      });
-
-      activeIndex = index;
-
-      // Load new content with slight delay
-      setTimeout(() => {
-        switchContent(spoke.getAttribute('data-page'));
-      }, 200);
-    });
-  });
-
-  // Optional: Make profile image clickable to return home
+  
+  // Make profile image clickable to go to home
   const profileImage = document.getElementById('profileImage');
   if (profileImage) {
-    profileImage.style.cursor = 'pointer';
-    profileImage.addEventListener('click', () => {
+    profileImage.addEventListener('click', function() {
       const homeSpoke = document.querySelector('.spoke[data-page="home"]');
-      if (homeSpoke) homeSpoke.click();
+      if (homeSpoke) {
+        homeSpoke.click();
+      }
     });
+    
+    // Add cursor pointer to profile image
+    profileImage.style.cursor = 'pointer';
   }
 }
 
-// Show selected page and update document state
 function switchContent(page) {
+  // Hide all content sections
   const allContent = document.querySelectorAll('.page-content');
   const targetContent = document.getElementById(`${page}-content`);
-
-  // Fade out current
-  allContent.forEach(content => content.classList.remove('active'));
-
-  // Fade in target
+  
+  // First, fade out current content
+  allContent.forEach(content => {
+    if (content.classList.contains('active')) {
+      content.classList.remove('active');
+    }
+  });
+  
+  // Then fade in target content after a short delay
   setTimeout(() => {
     if (targetContent) {
       targetContent.classList.add('active');
-      document.title = `${capitalize(page)} - Sudarshan Anand`;
+      // Update page title
+      document.title = `${page.charAt(0).toUpperCase() + page.slice(1)} - Sudarshan Anand`;
+      // Update URL hash
       window.location.hash = page;
     }
   }, 250);
 }
 
-// Respond to back/forward browser navigation
-window.addEventListener('hashchange', () => {
+// Handle browser back/forward buttons
+window.addEventListener('hashchange', function() {
   const hash = window.location.hash.slice(1) || 'home';
-  const targetSpoke = document.querySelector(`.spoke[data-page="${hash}"]`);
+  const targetSpoke = document.querySelector(`[data-page="${hash}"]`);
+  
   if (targetSpoke && !targetSpoke.classList.contains('active')) {
     targetSpoke.click();
   }
 });
 
-// Capitalize first letter utility
-function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-// Handle initial load (hash-based)
+// Handle initial page load with hash
 function handleInitialLoad() {
   const hash = window.location.hash.slice(1) || 'home';
-  const targetSpoke = document.querySelector(`.spoke[data-page="${hash}"]`);
+  const targetSpoke = document.querySelector(`[data-page="${hash}"]`);
+  
   if (targetSpoke && hash !== 'home') {
     targetSpoke.click();
   } else {
+    // Ensure home content is shown by default
     switchContent('home');
   }
 }
 
-// Initialize everything
+// Initialize immediately if DOM is ready, or wait for it
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', function() {
     initNavigation();
     handleInitialLoad();
   });
