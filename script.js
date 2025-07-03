@@ -41,7 +41,9 @@ function initNavigation() {
         return;
       }
 
-      const baseAngle = parseFloat(spoke.getAttribute('data-angle'));
+      let baseAngle = parseFloat(spoke.getAttribute('data-angle'));
+      baseAngle = ((baseAngle % 360) + 360) % 360; // Normalize to [0, 360)
+      console.log(`Clicked spoke at angle: ${baseAngle}°`);
 
       // Compute new absolute rotation to bring clicked tab to 180° (left horizontal)
       currentRotation = 180 - baseAngle;
@@ -50,10 +52,10 @@ function initNavigation() {
       // Update label orientation & active state
       spokes.forEach((s, i) => {
         const originalAngle = parseFloat(s.getAttribute('data-angle'));
-        const totalAngle = originalAngle + currentRotation;
+        // const totalAngle = originalAngle + currentRotation;
         const label = s.querySelector('.spoke-label');
         if (label) {
-          label.style.transform = `translateY(-50%) rotate(${-totalAngle}deg)`;
+          label.style.transform = `translateY(-50%) rotate(${-currentRotation}deg)`;
         }
 
         s.classList.toggle('active', i === index);

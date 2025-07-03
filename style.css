@@ -1,8 +1,8 @@
 body {
   margin: 0;
-  background: #10013a;
+  background: #012339;
   color: #7ffff9;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   overflow: hidden;
   height: 100vh;
 }
@@ -91,20 +91,20 @@ body {
   transform: rotate(180deg);
 }
 
-.spoke[data-angle="120"] {
-  transform: rotate(120deg);
+.spoke[data-angle="108"] {
+  transform: rotate(108deg);
 }
 
-.spoke[data-angle="60"] {
-  transform: rotate(60deg);
+.spoke[data-angle="36"] {
+  transform: rotate(36deg);
 }
 
-.spoke[data-angle="330"] {
-  transform: rotate(330deg);
+.spoke[data-angle="252"] {
+  transform: rotate(252deg);
 }
 
-.spoke[data-angle="270"] {
-  transform: rotate(270deg);
+.spoke[data-angle="324"] {
+  transform: rotate(324deg);
 }
 
 .spoke-line {
@@ -141,23 +141,23 @@ body {
 
 /* Counter-rotate labels to keep them upright */
 .spoke[data-angle="180"] .spoke-label {
-  transform: translateY(-50%) rotate(-180deg);
+  transform: translateY(-50%);
 }
 
 .spoke[data-angle="120"] .spoke-label {
-  transform: translateY(-50%) rotate(-120deg);
+  transform: translateY(-50%);
 }
 
 .spoke[data-angle="60"] .spoke-label {
-  transform: translateY(-50%) rotate(-60deg);
+  transform: translateY(-50%);
 }
 
 .spoke[data-angle="330"] .spoke-label {
-  transform: translateY(-50%) rotate(-330deg);
+  transform: translateY(-50%);
 }
 
 .spoke[data-angle="270"] .spoke-label {
-  transform: translateY(-50%) rotate(-270deg);
+  transform: translateY(-50%);
 }
 
 .spoke:hover .spoke-label {
