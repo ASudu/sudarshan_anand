@@ -21,15 +21,19 @@ function initNavigation() {
       
       const targetAngle = parseFloat(this.getAttribute('data-angle'));
       const targetPage = this.getAttribute('data-page');
+
+      // Calculate rotation needed to bring clicked spoke to 180 degrees
+      const currentSpokeSystemRotation = currentRotation % 360;
+      const spokeCurrentAngle = (targetAngle + currentSpokeSystemRotation + 360) % 360;
       
       // Only rotate if this spoke is not already active
       if (!this.classList.contains('active')) {
-        const rotationNeeded = 180 - targetAngle;
+        const rotationNeeded = 180 - spokeCurrentAngle;
         currentRotation += rotationNeeded;
-        
+
         // Rotate the spoke system
         spokeSystem.style.transform = `rotate(${currentRotation}deg)`;
-        
+
         // Update all labels and active states
         spokes.forEach(s => {
           const originalAngle = parseFloat(s.getAttribute('data-angle'));
@@ -38,16 +42,39 @@ function initNavigation() {
           
           if (label) {
             label.style.transform = `translateY(-50%) rotate(${-newAngle}deg)`;
-            // Store current rotation for hover/active states
             s.style.setProperty('--current-label-rotation', `${-newAngle}deg`);
           }
-          
+
           s.classList.remove('active');
         });
-        
+
         this.classList.add('active');
-        
-        // Switch content after a short delay to let rotation start
+
+        // ✅ RESET rotation baseline to 0 for future clicks
+        setTimeout(() => {
+          spokeSystem.style.transition = 'none';
+          spokeSystem.style.transform = 'rotate(0deg)';
+          
+          spokes.forEach(s => {
+            const originalAngle = parseFloat(s.getAttribute('data-angle'));
+            const newAngle = originalAngle + currentRotation;
+            const label = s.querySelector('.spoke-label');
+            
+            if (label) {
+              label.style.transform = `translateY(-50%) rotate(${-originalAngle}deg)`;
+              s.style.setProperty('--current-label-rotation', `${-originalAngle}deg`);
+            }
+
+            // Reset spoke transform so it's ready for next rotation from 0
+          });
+
+          // Force reflow and re-enable transition
+          void spokeSystem.offsetWidth;
+          spokeSystem.style.transition = '';
+          currentRotation = 0;
+        }, 800); // Should match your transition duration
+
+        // Load tab content slightly after rotation
         setTimeout(() => {
           switchContent(targetPage);
         }, 200);

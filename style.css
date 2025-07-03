@@ -99,12 +99,12 @@ body {
   transform: rotate(36deg);
 }
 
-.spoke[data-angle="252"] {
-  transform: rotate(252deg);
-}
-
 .spoke[data-angle="324"] {
   transform: rotate(324deg);
+}
+
+.spoke[data-angle="252"] {
+  transform: rotate(252deg);
 }
 
 .spoke-line {
@@ -141,23 +141,23 @@ body {
 
 /* Counter-rotate labels to keep them upright */
 .spoke[data-angle="180"] .spoke-label {
-  transform: translateY(-50%);
+  transform: translateY(-50%) rotate(-180deg);
 }
 
 .spoke[data-angle="120"] .spoke-label {
-  transform: translateY(-50%);
+  transform: translateY(-50%) rotate(-120deg);
 }
 
 .spoke[data-angle="60"] .spoke-label {
-  transform: translateY(-50%);
+  transform: translateY(-50%) rotate(-60deg);
 }
 
 .spoke[data-angle="330"] .spoke-label {
-  transform: translateY(-50%);
+  transform: translateY(-50%) rotate(-330deg);
 }
 
 .spoke[data-angle="270"] .spoke-label {
-  transform: translateY(-50%);
+  transform: translateY(-50%) rotate(-270deg);
 }
 
 .spoke:hover .spoke-label {
