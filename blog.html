@@ -1,29 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog | Sudarshan Anand</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
     <div class="left">
-      <h1>Blog</h1>
-      <p>Welcome to my blog page!</p>
-      <nav>
-          <a href="index.html">Home</a>
-          <a href="projects.html">Projects</a>
-          <a href="publications.html">Publications</a>
-          <a href="contact.html">Contact</a>
-        </nav>
+      <div id="content">
+        <!-- Dynamic content will be loaded here -->
+        <!-- <div id="home-content" class="page-content active">
+          <h1>Hey,<br>I'm Sudarshan Anand</h1>
+        </div> -->
+        <!-- <div id="contact-content" class="page-content">
+          <h1>Contact Me</h1>
+          <p>Get in touch with me through various channels.</p>
+          <div class="contact-info">
+            <p>📧 Email: user@example.com</p>
+            <p>💼 LinkedIn: linkedin.com/in/user</p>
+            <p>🐙 GitHub: github.com/user</p>
+          </div>
+        </div> -->
+        <div id="blog-content" class="page-content">
+          <h1>Blog</h1>
+          <p>Welcome to my blog where I share insights and experiences.</p>
+          <div class="blog-posts">
+            <article>
+              <h3>Latest Post</h3>
+              <p>Coming soon...</p>
+            </article>
+          </div>
+        </div>
+        <!-- <div id="projects-content" class="page-content">
+          <h1>Projects</h1>
+          <p>Here are some of my featured projects.</p>
+          <div class="project-list">
+            <div class="project">
+              <h3>AI for Medical Imaging</h3>
+              <p>Deep learning project on fibrosis detection in CT scans.</p>
+
+              <h3>Graph-based Pandemic Modeling</h3>
+              <p>Simulating competition between viral strains using network theory.</p>
+            </div>
+          </div>
+        </div> -->
+        <!-- <div id="publications-content" class="page-content">
+          <h1>Publications</h1>
+          <p>My research and academic publications.</p>
+          <div class="publication-list">
+            <div class="publication">
+              <h2>AI for Medical Imaging</h2>
+              <p>Deep learning project on fibrosis detection in CT scans.</p>
+
+              <h2>Graph-based Pandemic Modeling</h2>
+              <p>Simulating competition between viral strains using network theory.</p>
+            </div>
+          </div>
+        </div> -->
+      </div>
     </div>
     <div class="right">
       <div class="mindmap">
-        <img src="assets/images/sudarshan_profile.svg" class="center-image" />
+        <div class="center-wrapper">
+          <img src="assets/images/sudarshan_profile.svg" class="center-image" id="profileImage" />
+        </div>
+        <div class="rotation-wrapper" id="rotationWrapper">
+          <div class="spoke-system" id="spokeSystem">
+            <div class="spoke active" data-angle="180" data-page="home">
+              <div class="spoke-line"></div>
+              <div class="spoke-label">Home</div>
+            </div>
+            <div class="spoke" data-angle="108" data-page="blog">
+              <div class="spoke-line"></div>
+              <div class="spoke-label" href="blog.html">Blog</div>
+            </div>
+            <div class="spoke" data-angle="36" data-page="contact">
+              <div class="spoke-line"></div>
+              <div class="spoke-label" href="contact.html">Contact</div>
+            </div>
+            <div class="spoke" data-angle="252" data-page="projects">
+              <div class="spoke-line"></div>
+              <div class="spoke-label" href="projects.html">Projects</div>
+            </div>
+            <div class="spoke" data-angle="324" data-page="publications">
+              <div class="spoke-line"></div>
+              <div class="spoke-label" href="publications.html">Publications</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+  <script src="script.js"></script>
   <footer>
     <p>© 2025 Sudarshan Anand</p>
   </footer>
