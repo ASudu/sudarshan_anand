@@ -141,7 +141,7 @@ body {
 
 /* Counter-rotate labels to keep them upright */
 .spoke[data-angle="180"] .spoke-label {
-  transform: translateY(-50%) rotate(180deg);
+  transform: translateY(-50%) rotate(-180deg);
 }
 
 .spoke[data-angle="108"] .spoke-label {
