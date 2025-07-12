@@ -144,20 +144,20 @@ body {
   transform: translateY(-50%) rotate(-180deg);
 }
 
-.spoke[data-angle="120"] .spoke-label {
-  transform: translateY(-50%) rotate(-120deg);
+.spoke[data-angle="108"] .spoke-label {
+  transform: translateY(-50%) rotate(-108deg);
 }
 
-.spoke[data-angle="60"] .spoke-label {
-  transform: translateY(-50%) rotate(-60deg);
+.spoke[data-angle="36"] .spoke-label {
+  transform: translateY(-50%) rotate(-36deg);
 }
 
-.spoke[data-angle="330"] .spoke-label {
-  transform: translateY(-50%) rotate(-330deg);
+.spoke[data-angle="324"] .spoke-label {
+  transform: translateY(-50%) rotate(-324deg);
 }
 
-.spoke[data-angle="270"] .spoke-label {
-  transform: translateY(-50%) rotate(-270deg);
+.spoke[data-angle="252"] .spoke-label {
+  transform: translateY(-50%) rotate(-252deg);
 }
 
 .spoke:hover .spoke-label {
