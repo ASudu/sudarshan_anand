@@ -50,13 +50,32 @@ function initNavigation() {
 
         this.classList.add('active');
 
-        // Load tab content slightly after rotation
-        setTimeout(() => {
-          switchContent(targetPage);
-        }, 200);
+        // Navigate to the respective HTML file after rotation animation
+        if (targetPage !== 'home') {
+          setTimeout(() => {
+            const targetContent = document.getElementById(`${targetPage}-content`);
+            const url = targetContent?.dataset.url;
+            if (url) {
+              window.location.href = url;
+            }
+          }, 1200); // Wait for rotation animation to complete
+        } else {
+          // For home, just switch content
+          setTimeout(() => {
+            switchContent(targetPage);
+          }, 200);
+        }
       } else {
-        // If already active, just switch content immediately
-        switchContent(targetPage);
+        // If already active, navigate immediately (except for home)
+        if (targetPage !== 'home') {
+          const targetContent = document.getElementById(`${targetPage}-content`);
+          const url = targetContent?.dataset.url;
+          if (url) {
+            window.location.href = url;
+          }
+        } else {
+          switchContent(targetPage);
+        }
       }
     });
     
@@ -64,9 +83,18 @@ function initNavigation() {
     const label = spoke.querySelector('.spoke-label');
     if (label) {
       label.addEventListener('click', function(e) {
-        e.preventDefault();
-        // Trigger the spoke click
-        spoke.click();
+        e.preventDefault(); // Prevent immediate navigation
+        
+        // If the spoke is not active, trigger rotation first
+        if (!spoke.classList.contains('active')) {
+          spoke.click(); // This will trigger the rotation and delayed navigation
+        } else {
+          // If already active, navigate immediately
+          const targetPage = spoke.getAttribute('data-page');
+          if (targetPage !== 'home') {
+            window.location.href = this.href;
+          }
+        }
       });
     }
   });
