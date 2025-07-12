@@ -130,13 +130,24 @@ body {
   pointer-events: auto;
   text-decoration: none;
   cursor: pointer;
+  display: block;
 }
 
 .spoke-label:hover {
   color: rgba(127, 255, 249, 1);
   text-decoration: none;
-  transform: scale(1.5);
+  transform: translateY(-50%) scale(1.1);
   font-weight: bold;
+  text-shadow: 0 0 12px rgba(127, 255, 249, 0.8);
+}
+
+.spoke.active .spoke-label {
+  font-weight: bold;
+  transform: translateY(-50%) scale(1.15);
+  text-shadow: 0 0 15px rgba(127, 255, 249, 1);
+  font-size: 20px;
+  color: rgba(127, 255, 249, 1);
+  text-decoration: none;
 }
 
 /* Counter-rotate labels to keep them upright */
@@ -260,17 +271,6 @@ body {
 .project h3, .publication h3 {
   color: #7ffff9;
   margin-bottom: 0.5rem;
-}
-
-/* Make spoke labels non-clickable links since we're using SPA */
-.spoke-label {
-  pointer-events: auto;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.spoke-label:hover {
-  text-decoration: none;
 }
 
 .rotation-wrapper {
