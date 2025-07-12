@@ -14,10 +14,45 @@
         <div id="home-content" class="page-content active">
           <h1>Hey,<br>I'm Sudarshan Anand</h1>
         </div>
-        <div id="contact-content" class="page-content" data-url="contact.html"></div>
-        <div id="blog-content" class="page-content" data-url="blog.html"></div>
-        <div id="projects-content" class="page-content" data-url="projects.html"></div>
-        <div id="publications-content" class="page-content" data-url="publications.html"></div>
+        <div id="contact-content" class="page-content">
+          <h1>Contact Me</h1>
+          <p>Get in touch with me through various channels.</p>
+          <div class="contact-info">
+            <p>📧 Email: user@example.com</p>
+            <p>💼 LinkedIn: linkedin.com/in/user</p>
+            <p>🐙 GitHub: github.com/user</p>
+          </div>
+        </div>
+        <div id="blog-content" class="page-content">
+          <h1>Blog</h1>
+          <p>Welcome to my blog where I share insights and experiences.</p>
+          <div class="blog-posts">
+            <article>
+              <h3>Latest Post</h3>
+              <p>Coming soon...</p>
+            </article>
+          </div>
+        </div>
+        <div id="projects-content" class="page-content">
+          <h1>Projects</h1>
+          <p>Here are some of my featured projects.</p>
+          <div class="project-list">
+            <div class="project">
+              <h3>Project 1</h3>
+              <p>Description coming soon...</p>
+            </div>
+          </div>
+        </div>
+        <div id="publications-content" class="page-content">
+          <h1>Publications</h1>
+          <p>My research and academic publications.</p>
+          <div class="publication-list">
+            <div class="publication">
+              <h3>Publication 1</h3>
+              <p>Details coming soon...</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="right">
@@ -29,49 +64,29 @@
           <div class="spoke-system" id="spokeSystem">
             <div class="spoke active" data-angle="180" data-page="home">
               <div class="spoke-line"></div>
-              <a href="index.html" class="spoke-label">Home</a>
+              <div class="spoke-label">Home</div>
             </div>
             <div class="spoke" data-angle="108" data-page="blog">
               <div class="spoke-line"></div>
-              <a href="blog.html" class="spoke-label">Blog</a>
+              <div class="spoke-label" href="blog.html">Blog</div>
             </div>
             <div class="spoke" data-angle="36" data-page="contact">
               <div class="spoke-line"></div>
-              <a href="contact.html" class="spoke-label">Contact</a>
+              <div class="spoke-label" href="contact.html">Contact</div>
             </div>
             <div class="spoke" data-angle="252" data-page="projects">
               <div class="spoke-line"></div>
-              <a href="projects.html" class="spoke-label">Projects</a>
+              <div class="spoke-label" href="projects.html">Projects</div>
             </div>
             <div class="spoke" data-angle="324" data-page="publications">
               <div class="spoke-line"></div>
-              <a href="publications.html" class="spoke-label">Publications</a>
+              <div class="spoke-label" href="publications.html">Publications</div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <script>
-    function loadPageContentIfNeeded(page) {
-      const contentEl = document.getElementById(`${page}-content`);
-      const url = contentEl?.dataset.url;
-
-      if (url && contentEl.innerHTML.trim() === '') {
-        fetch(url)
-          .then(res => res.text())
-          .then(html => {
-            contentEl.innerHTML = html;
-          })
-          .catch(err => {
-            contentEl.innerHTML = `<p>Error loading ${page} content.</p>`;
-            console.error(err);
-          });
-      }
-    }
-  </script>
-
   <script src="script.js"></script>
 </body>
 </html>

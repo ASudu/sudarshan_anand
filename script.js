@@ -115,41 +115,27 @@ function initNavigation() {
 }
 
 function switchContent(page) {
-  // // Hide all content sections
-  // const allContent = document.querySelectorAll('.page-content');
-  // const targetContent = document.getElementById(`${page}-content`);
-  
-  // // First, fade out current content
-  // allContent.forEach(content => {
-  //   if (content.classList.contains('active')) {
-  //     content.classList.remove('active');
-  //   }
-  // });
-  
-  // // Then fade in target content after a short delay
-  // setTimeout(() => {
-  //   if (targetContent) {
-  //     targetContent.classList.add('active');
-  //     // Update page title
-  //     document.title = `${page.charAt(0).toUpperCase() + page.slice(1)} - Sudarshan Anand`;
-  //     // Update URL hash
-  //     window.location.hash = page;
-  //   }
-  // }, 250);
+  // Hide all content sections
   const allContent = document.querySelectorAll('.page-content');
   const targetContent = document.getElementById(`${page}-content`);
-
-  allContent.forEach(content => content.classList.remove('active'));
-
+  
+  // First, fade out current content
+  allContent.forEach(content => {
+    if (content.classList.contains('active')) {
+      content.classList.remove('active');
+    }
+  });
+  
+  // Then fade in target content after a short delay
   setTimeout(() => {
     if (targetContent) {
-      loadPageContentIfNeeded(page);
       targetContent.classList.add('active');
+      // Update page title
       document.title = `${page.charAt(0).toUpperCase() + page.slice(1)} - Sudarshan Anand`;
+      // Update URL hash
       window.location.hash = page;
     }
   }, 250);
-
 }
 
 // Handle browser back/forward buttons
