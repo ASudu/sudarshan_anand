@@ -13,49 +13,34 @@
         <div id="contact-content" class="page-content active">
           <h1>Contact Me</h1>
           <p>Get in touch with me through various channels.</p>
-          <div class="contact-info">
-            <div class="contact-methods">
-              <div class="contact-item">
-                <h3>📧 Email</h3>
-                <p><a href="mailto:sanand315@gatech.edu">sanand315@gatech.edu</a></p>
+            <div class="contact-info" style="margin-bottom: 1em;">
+            <div class="contact-methods" style="display: flex; flex-direction: column; gap: 0.3em;">
+              <div class="contact-item" style="margin-bottom: 0;">
+                <h3 style="margin-bottom: 0.2em;">📧 Email</h3>
+                <p style="margin: 0;"><a href="mailto:sanand315@gatech.edu" style="color: #39ff14;">sanand315@gatech.edu</a></p>
               </div>
-              
-              <div class="contact-item">
-                <h3>💼 Professional</h3>
-                <p><a href="https://www.linkedin.com/in/sudarshan-anand-360535211/" target="_blank">LinkedIn Profile</a></p>
+              <div class="contact-item" style="margin-bottom: 0;">
+                <h3 style="margin-bottom: 0.2em;">💼 Professional</h3>
+                <p style="margin: 0;"><a href="https://www.linkedin.com/in/sudarshan-anand-360535211/" target="_blank" style="color: #39ff14;">LinkedIn Profile</a></p>
               </div>
-              
-              <div class="contact-item">
-                <h3>🐙 Code</h3>
-                <p><a href="https://github.com/ASudu" target="_blank">GitHub Profile</a></p>
+              <div class="contact-item" style="margin-bottom: 0;">
+                <h3 style="margin-bottom: 0.2em;">🐙 Code</h3>
+                <p style="margin: 0;"><a href="https://github.com/ASudu" target="_blank" style="color: #39ff14;">GitHub Profile</a></p>
               </div>
-              
-              <div class="contact-item">
-                <h3>🌐 Academic</h3>
-                <p><a href="https://scholar.google.com/citations?user=0hOXk24AAAAJ&hl=en" target="_blank">Google Scholar</a></p>
+              <div class="contact-item" style="margin-bottom: 0;">
+                <h3 style="margin-bottom: 0.2em;">🌐 Academic</h3>
+                <p style="margin: 0;"><a href="https://scholar.google.com/citations?user=0hOXk24AAAAJ&hl=en" target="_blank" style="color: #39ff14;">Google Scholar</a></p>
               </div>
             </div>
             
-            <div class="contact-form">
-              <h3>📝 Send a Message</h3>
-              <form action="#" method="post">
-                <div class="form-group">
-                  <label for="name">Name:</label>
-                  <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                  <label for="email">Email:</label>
-                  <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                  <label for="subject">Subject:</label>
-                  <input type="text" id="subject" name="subject" required>
-                </div>
-                <div class="form-group">
-                  <label for="message">Message:</label>
-                  <textarea id="message" name="message" rows="5" required></textarea>
-                </div>
-                <button type="submit">Send Message</button>
+            <div class="contact-form" style="background: #222; padding: 1em; border-radius: 8px; max-width: 350px; width: 100%;">
+              <h3 style="margin-bottom: 0.5em;">📝 Send a Message</h3>
+              <form action="#" method="post" style="display: flex; flex-direction: column; gap: 0.5em;">
+                <input type="text" id="name" name="name" placeholder="Name" required style="padding: 0.5em; border-radius: 4px; border: 1px solid #444; background: #111; color: #fff;">
+                <input type="email" id="email" name="email" placeholder="Email" required style="padding: 0.5em; border-radius: 4px; border: 1px solid #444; background: #111; color: #fff;">
+                <input type="text" id="subject" name="subject" placeholder="Subject" required style="padding: 0.5em; border-radius: 4px; border: 1px solid #444; background: #111; color: #fff;">
+                <textarea id="message" name="message" rows="3" placeholder="Message" required style="padding: 0.5em; border-radius: 4px; border: 1px solid #444; background: #111; color: #fff;"></textarea>
+                <button type="submit" style="background: #39ff14; color: #222; border: none; border-radius: 4px; padding: 0.6em; font-weight: bold; cursor: pointer;">Send</button>
               </form>
             </div>
           </div>
