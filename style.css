@@ -31,6 +31,11 @@ body {
   text-shadow: 0 0 10px rgba(127, 255, 249, 0.5);
 }
 
+.left h3 {
+  line-height: 1.2;
+  text-shadow: 0 0 10px rgba(127, 255, 249, 0.5);
+}
+
 .right {
   flex: 1;
   display: flex;
