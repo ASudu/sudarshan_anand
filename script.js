@@ -62,8 +62,9 @@ class FerrisWheelNavigation {
       activeSpoke.classList.add('active');
       
       // Rotate to show active spoke at 180 degrees
-      const targetAngle = parseInt(activeSpoke.dataset.angle);
-      const rotationNeeded = 180 - targetAngle;
+      const currAngle = (parseInt(activeSpoke.dataset.angle)) % 360;
+      console.log('Active spoke angle:', currAngle);
+      const rotationNeeded = 180 - currAngle;
       this.currentRotation = rotationNeeded;
       
       // Apply initial rotation without animation
@@ -103,10 +104,10 @@ class FerrisWheelNavigation {
   // Update label rotations to keep them upright as the wheel rotates
   updateLabelRotations() {
     this.spokes.forEach(spoke => {
-      // Get the original angle of the spoke
-      const originalAngle = parseInt(spoke.dataset.angle);
+      // Get the current angle of the spoke
+      const currAngle = (parseInt(spoke.dataset.angle)) % 360;
       // Calculate the new angle after wheel rotation
-      const newAngle = originalAngle + this.currentRotation;
+      const newAngle = currAngle + this.currentRotation;
       
       // Find the label element inside the spoke
       const label = spoke.querySelector('.spoke-label');
@@ -148,7 +149,7 @@ class FerrisWheelNavigation {
     }
 
     // Get the angle and navigation target for the clicked spoke
-    const targetAngle = parseInt(spoke.dataset.angle);
+    const currAngle = parseInt(spoke.dataset.angle);
     const isAlreadyActive = spoke.classList.contains('active');
     const href = spoke.querySelector('.spoke-label').getAttribute('href');
 
@@ -166,21 +167,22 @@ class FerrisWheelNavigation {
     this.setActiveSpoke(spoke);
 
     // Rotate the wheel to bring the clicked spoke to the active position
-    this.rotateToPosition(targetAngle, () => {
+    this.rotateToPosition(currAngle, () => {
       // After rotation animation completes, navigate to the target page
       window.location.href = href;
     });
   }
 
   // Rotate the wheel to bring the target spoke to the active position
-  rotateToPosition(targetAngle, callback) {
+  rotateToPosition(currAngle, callback) {
+    // Prevent overlapping rotations
     if (this.isRotating) return;
 
     this.isRotating = true;
-    
-    // Calculate rotation needed to bring target to 180 degrees
-    const rotationNeeded = 180 - targetAngle;
-    this.currentRotation += rotationNeeded;
+
+    // Calculate rotation needed to bring current angle to 180 degrees
+    const rotationNeeded = 180 - (currAngle % 360);
+    this.currentRotation = rotationNeeded;
 
     console.log('Rotating by:', rotationNeeded, 'Total rotation:', this.currentRotation);
 
