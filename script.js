@@ -65,7 +65,8 @@ class FerrisWheelNavigation {
       const currAngle = (parseInt(activeSpoke.dataset.angle)) % 360;
       console.log('Active spoke angle:', currAngle);
       const rotationNeeded = 180 - currAngle;
-      this.currentRotation = rotationNeeded;
+      this.currentRotation = Math.min(rotationNeeded, 360 - rotationNeeded);
+      console.log('Initial rotation needed:', rotationNeeded, 'Total rotation:', this.currentRotation);
       
       // Apply initial rotation without animation
       this.spokeSystem.style.transition = 'none';
@@ -182,7 +183,7 @@ class FerrisWheelNavigation {
 
     // Calculate rotation needed to bring current angle to 180 degrees
     const rotationNeeded = 180 - (currAngle % 360);
-    this.currentRotation = rotationNeeded;
+    this.currentRotation = Math.min(rotationNeeded, 360 - rotationNeeded);
 
     console.log('Rotating by:', rotationNeeded, 'Total rotation:', this.currentRotation);
 
