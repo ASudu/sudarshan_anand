@@ -1,29 +1,52 @@
+// FerrisWheelNavigation class handles interactive navigation using a rotating wheel UI
 class FerrisWheelNavigation {
   constructor() {
+    // Get the main spoke system element
     this.spokeSystem = document.getElementById('spokeSystem');
+    // Get all spoke elements
     this.spokes = document.querySelectorAll('.spoke');
+    // Track the current rotation angle of the wheel
     this.currentRotation = 0;
+    // Flag to prevent overlapping rotations
     this.isRotating = false;
     
+    // Initialize navigation logic
     this.init();
   }
 
+  // Initialize the navigation system
   init() {
+    // Check if spoke system and spokes exist
     if (!this.spokeSystem || !this.spokes.length) {
       console.error('Navigation elements not found');
       return;
     }
 
-    // Set initial positions
+    // Set initial positions of spokes and labels
     this.setInitialPositions();
     
-    // Add event listeners
+    // Attach event listeners for navigation interactions
     this.addEventListeners();
     
-    // Set the correct active spoke based on current page
+    // Highlight the spoke corresponding to the current page
     this.setActiveSpokeForCurrentPage();
   }
 
+  // Set initial positions of spokes and their labels
+  setInitialPositions() {
+    // Position each spoke at its designated angle
+    this.spokes.forEach(spoke => {
+      const angle = parseInt(spoke.dataset.angle);
+      console.log('Setting spoke angle:', angle);
+      // Rotate the spoke to its angle around the wheel
+      spoke.style.transform = `rotate(${angle}deg)`;
+    });
+    
+    // Counter-rotate labels so they remain upright
+    this.updateLabelRotations();
+  }
+
+  // Set the active spoke based on the current page
   setActiveSpokeForCurrentPage() {
     // Get current page name from URL
     const currentPage = this.getCurrentPageName();
@@ -59,6 +82,7 @@ class FerrisWheelNavigation {
     }
   }
 
+  // Get the logical page name from the current URL
   getCurrentPageName() {
     const path = window.location.pathname;
     const filename = path.split('/').pop();
@@ -76,77 +100,79 @@ class FerrisWheelNavigation {
     return pageMap[filename] || 'home';
   }
 
-  setInitialPositions() {
-    this.spokes.forEach(spoke => {
-      const angle = parseInt(spoke.dataset.angle);
-      spoke.style.transform = `rotate(${angle}deg)`;
-    });
-    
-    this.updateLabelRotations();
-  }
-
+  // Update label rotations to keep them upright as the wheel rotates
   updateLabelRotations() {
     this.spokes.forEach(spoke => {
+      // Get the original angle of the spoke
       const originalAngle = parseInt(spoke.dataset.angle);
+      // Calculate the new angle after wheel rotation
       const newAngle = originalAngle + this.currentRotation;
       
-      // Counter-rotate labels to keep them upright
+      // Find the label element inside the spoke
       const label = spoke.querySelector('.spoke-label');
       if (label) {
+        // Counter-rotate the label so it remains upright
         label.style.transform = `translateY(-50%) rotate(${-newAngle}deg)`;
       }
     });
   }
 
+  // Attach event listeners for navigation and profile image
   addEventListeners() {
-    // Add click listeners to spoke labels
+    // Add click listeners to spoke labels for navigation
     this.spokes.forEach(spoke => {
       const label = spoke.querySelector('.spoke-label');
       if (label) {
+        // When a spoke label is clicked, handle navigation and rotation
         label.addEventListener('click', (e) => this.handleLabelClick(e, spoke));
       }
     });
 
-    // Add click listener to profile image (return to home)
+    // Add click listener to profile image to return to home page
     const profileImage = document.getElementById('profileImage');
     if (profileImage) {
       profileImage.style.cursor = 'pointer';
+      // When profile image is clicked, navigate to home (index.html)
       profileImage.addEventListener('click', () => {
         window.location.href = 'index.html';
       });
     }
   }
 
+  // Handle click events on spoke labels for navigation and rotation
   handleLabelClick(event, spoke) {
+    // Prevent interaction if a rotation is already in progress
     if (this.isRotating) {
       event.preventDefault();
       return;
     }
 
+    // Get the angle and navigation target for the clicked spoke
     const targetAngle = parseInt(spoke.dataset.angle);
     const isAlreadyActive = spoke.classList.contains('active');
     const href = spoke.querySelector('.spoke-label').getAttribute('href');
 
     console.log('Label clicked:', spoke.dataset.page, 'Already active:', isAlreadyActive);
 
-    // If it's already active, navigate immediately
+    // If the clicked spoke is already active, allow default navigation
     if (isAlreadyActive) {
       return; // Allow default navigation
     }
 
-    // Prevent default navigation
+    // Prevent default navigation to handle rotation first
     event.preventDefault();
 
-    // Update active state immediately
+    // Set the clicked spoke as active immediately
     this.setActiveSpoke(spoke);
 
-    // Rotate to position first, then navigate
+    // Rotate the wheel to bring the clicked spoke to the active position
     this.rotateToPosition(targetAngle, () => {
-      // After rotation, navigate to the page
+      // After rotation animation completes, navigate to the target page
       window.location.href = href;
     });
   }
 
+  // Rotate the wheel to bring the target spoke to the active position
   rotateToPosition(targetAngle, callback) {
     if (this.isRotating) return;
 
@@ -171,6 +197,7 @@ class FerrisWheelNavigation {
     }, 1200); // Match CSS transition duration
   }
 
+  // Set the specified spoke as active
   setActiveSpoke(activeSpoke) {
     // Remove active class from all spokes
     this.spokes.forEach(spoke => spoke.classList.remove('active'));
@@ -180,8 +207,10 @@ class FerrisWheelNavigation {
   }
 }
 
-// Initialize when DOM is loaded
+// Initialize FerrisWheelNavigation when DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
+  // Log for debugging purposes
   console.log('DOM loaded, initializing navigation...');
+  // Create a new instance to set up the navigation wheel
   new FerrisWheelNavigation();
 });
