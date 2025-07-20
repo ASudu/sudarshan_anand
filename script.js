@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM loaded, initializing navigation...');
 
   const toggleBtn = document.getElementById('themeToggle');
-  const icon = document.getElementById('themeIcon');
+  let icon = document.getElementById('themeIcon'); // Use 'let' so we can reassign
 
   // Initialize icon and theme from localStorage
   const savedTheme = localStorage.getItem('theme');
@@ -228,15 +228,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Toggle theme on button click
   toggleBtn.addEventListener('click', () => {
     const darkNow = document.body.classList.toggle('dark-mode');
-
-    // Update icon name based on new theme
     const newIcon = darkNow ? 'sun' : 'moon';
 
     // Replace icon element entirely to force Lucide re-render
     icon.outerHTML = `<i id="themeIcon" data-lucide="${newIcon}"></i>`;
 
-    // Get the newly replaced icon
-    const newIconEl = document.getElementById('themeIcon');
+    // Update the icon reference to the new element
+    icon = document.getElementById('themeIcon');
 
     // Re-render the Lucide icon
     lucide.createIcons();
@@ -244,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Save new theme in localStorage
     localStorage.setItem('theme', darkNow ? 'dark' : 'light');
   });
-  
+
   // Create a new instance to set up the navigation wheel
   new FerrisWheelNavigation();
 });

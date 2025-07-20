@@ -40,9 +40,6 @@ body {
   
   background: var(--bg-gradient-light);
   background-color: var(--bg-light);
-  background-blend-mode: screen;
-  background-repeat: no-repeat;
-  background-size: cover;
   
   color: var(--text-light);
   
@@ -133,32 +130,169 @@ body.dark-mode .left h3 {
 /* ───────── Mindmap Spokes ───────── */
 /* Reuse your existing spoke, line, and label definitions */
 /* Note: highlight color remains constant due to CSS variables */
-.spoke-line {
-  background: linear-gradient(90deg, var(--highlight-light), var(--highlight-light) 30%);
-  box-shadow: 0 0 5px var(--shadow-light);
-}
-.spoke-label {
-  color: var(--highlight-light);
-  text-shadow: 0 0 8px var(--shadow-light);
-}
-.spoke:hover .spoke-label {
-  color: rgba(127, 255, 249, 1);
-}
-.spoke.active .spoke-label {
-  font-weight: bold;
-  font-size: 20px;
-  color: rgba(127, 255, 249, 1);
-  text-shadow: 0 0 15px var(--shadow-light);
-}
-.spoke:hover .spoke-line {
-  background: linear-gradient(90deg, var(--highlight-light), var(--highlight-light) 50%);
-  box-shadow: 0 0 10px var(--shadow-light);
-}
-.spoke.active .spoke-line {
-  background: linear-gradient(90deg, #ffffff, var(--highlight-light));
-  box-shadow: 0 0 15px var(--shadow-light);
+.mindmap {
+  position: relative;
+  width: 600px;
+  height: 600px;
 }
 
+.center-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  height: 250px;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  background: transparent;
+  display: flex;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.center-image {
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+}
+
+.spoke-system {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform-origin: center center;
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 5;
+  pointer-events: none; /* Spokes handle interaction */
+}
+
+.spoke {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 6;
+  pointer-events: auto;
+}
+
+/* Initial positioning for each spoke */
+.spoke[data-angle="180"] {
+  transform: rotate(180deg);
+}
+
+.spoke[data-angle="108"] {
+  transform: rotate(108deg);
+}
+
+.spoke[data-angle="36"] {
+  transform: rotate(36deg);
+}
+
+.spoke[data-angle="324"] {
+  transform: rotate(324deg);
+}
+
+.spoke[data-angle="252"] {
+  transform: rotate(252deg);
+}
+
+.spoke-line {
+  position: absolute;
+  width: 180px;
+  height: 2px;
+  background: linear-gradient(90deg, #7ffff9, rgba(127, 255, 249, 0.3));
+  transform-origin: left center;
+  box-shadow: 0 0 5px rgba(127, 255, 249, 0.5);
+}
+
+.spoke-label {
+  position: absolute;
+  left: 190px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  font-weight: 400;
+  color: #7ffff9;
+  text-shadow: 0 0 8px rgba(127, 255, 249, 0.6);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  pointer-events: auto;
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+}
+
+.spoke-label:hover {
+  color: rgba(127, 255, 249, 1);
+  text-decoration: none;
+  transform: translateY(-50%) scale(1.1);
+  font-weight: bold;
+  text-shadow: 0 0 12px rgba(127, 255, 249, 0.8);
+}
+
+.spoke.active .spoke-label {
+  font-weight: bold;
+  transform: translateY(-50%) scale(1.15);
+  text-shadow: 0 0 15px rgba(127, 255, 249, 1);
+  font-size: 20px;
+  color: rgba(127, 255, 249, 1);
+  text-decoration: none;
+}
+
+/* Counter-rotate labels to keep them upright */
+.spoke[data-angle="180"] .spoke-label {
+  transform: translateY(-50%) rotate(-180deg);
+}
+
+.spoke[data-angle="108"] .spoke-label {
+  transform: translateY(-50%) rotate(-108deg);
+}
+
+.spoke[data-angle="36"] .spoke-label {
+  transform: translateY(-50%) rotate(-36deg);
+}
+
+.spoke[data-angle="324"] .spoke-label {
+  transform: translateY(-50%) rotate(-324deg);
+}
+
+.spoke[data-angle="252"] .spoke-label {
+  transform: translateY(-50%) rotate(-252deg);
+}
+
+.spoke:hover .spoke-label {
+  font-weight: bold;
+  transform: translateY(-50%) scale(1.1) rotate(var(--current-label-rotation, 0deg));
+  text-shadow: 0 0 12px rgba(127, 255, 249, 0.8);
+  color: rgba(127, 255, 249, 1);
+  text-decoration: none;
+}
+
+.spoke.active .spoke-label {
+  font-weight: bold;
+  transform: translateY(-50%) scale(1.15) rotate(var(--current-label-rotation, 0deg));
+  text-shadow: 0 0 15px rgba(127, 255, 249, 1);
+  font-size: 20px;
+  color: rgba(127, 255, 249, 1);
+  text-decoration: none;
+}
+
+.spoke:hover .spoke-line {
+  box-shadow: 0 0 10px rgba(127, 255, 249, 0.8);
+  background: linear-gradient(90deg, #7ffff9, rgba(127, 255, 249, 0.5));
+}
+
+.spoke.active .spoke-line {
+  box-shadow: 0 0 15px rgba(127, 255, 249, 1);
+  background: linear-gradient(90deg, #ffffff, #7ffff9);
+}
 /* Ensure base spoke-layout styles remain unchanged */
 /* (your transforms, positions, etc.) */
 
