@@ -96,47 +96,72 @@ body.dark-mode {
 }
 
 /* ───────── Contact button ───────── */
+.contact-methods {
+  display: flex;
+  flex-direction: row;
+  gap: 0.7em;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 2em;
+}
+
 .contact-btn {
   display: flex;
   align-items: center;
   gap: 0.5em;
-  background: var(--btn-bg-light);
-  color: var(--text-light);
-  border: 1px solid var(--border-light);
-  border-radius: 6px;
-  padding: 0.5em 1.2em;
-  font-size: 1.1rem;
+  background: transparent;
+  color: #000;
+  border: 1.5px solid #000;
+  border-radius: 12px;
+  padding: 0.35em 1em;
+  font-size: 1rem;
   font-family: inherit;
   text-decoration: none;
-  margin-bottom: 0.5em;
-  transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(127,255,249,0.08);
+  margin-bottom: 0.7em;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  box-shadow: none;
 }
 
 .contact-btn i {
-  width: 1.3em;
-  height: 1.3em;
+  width: 1.2em;
+  height: 1.2em;
   display: inline-flex;
   vertical-align: middle;
+  color: #000;
+  transition: color 0.2s;
 }
 
+/* Light mode hover */
 .contact-btn:hover {
-  background: var(--highlight-light);
-  color: #000;
-  border-color: #000000;
-  box-shadow: 0 4px 16px rgba(127,255,249,0.18);
+  background: #000;
+  color: #fff;
+  border-color: #000;
 }
 
+.contact-btn:hover i {
+  color: #fff;
+}
+
+/* Dark mode base */
 body.dark-mode .contact-btn {
-  background: var(--btn-bg-dark);
-  color: var(--text-dark);
-  border: 1px solid var(--border-dark);
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid #fff;
 }
 
+body.dark-mode .contact-btn i {
+  color: #fff;
+}
+
+/* Dark mode hover */
 body.dark-mode .contact-btn:hover {
-  background: var(--highlight-dark);
+  background: #fff;
   color: #000;
-  border-color: #ffffff;
+  border-color: #fff;
+}
+
+body.dark-mode .contact-btn:hover i {
+  color: #000;
 }
 
 /* ───────── Layout Containers ───────── */
