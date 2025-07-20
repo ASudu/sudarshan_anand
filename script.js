@@ -214,6 +214,26 @@ class FerrisWheelNavigation {
 document.addEventListener('DOMContentLoaded', () => {
   // Log for debugging purposes
   console.log('DOM loaded, initializing navigation...');
+
+  const toggleBtn = document.getElementById('themeToggle');
+  const icon = document.getElementById('themeIcon');
+
+  // Initialize icon and theme from localStorage
+  const savedTheme = localStorage.getItem('theme');
+  const isDark = savedTheme === 'dark';
+  document.body.classList.toggle('dark-mode', isDark);
+  icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+  lucide.createIcons();
+
+  // Toggle theme on button click
+  toggleBtn.addEventListener('click', () => {
+    const darkNow = document.body.classList.toggle('dark-mode');
+    const newIcon = darkNow ? 'sun' : 'moon';
+    icon.setAttribute('data-lucide', newIcon);
+    localStorage.setItem('theme', darkNow ? 'dark' : 'light');
+    lucide.createIcons();
+  });
+  
   // Create a new instance to set up the navigation wheel
   new FerrisWheelNavigation();
 });
