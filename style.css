@@ -95,6 +95,50 @@ body.dark-mode {
   transition: stroke 0.3s ease;
 }
 
+/* ───────── Contact button ───────── */
+.contact-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  background: var(--btn-bg-light);
+  color: var(--text-light);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 0.5em 1.2em;
+  font-size: 1.1rem;
+  font-family: inherit;
+  text-decoration: none;
+  margin-bottom: 0.5em;
+  transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(127,255,249,0.08);
+}
+
+.contact-btn i {
+  width: 1.3em;
+  height: 1.3em;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.contact-btn:hover {
+  background: var(--highlight-light);
+  color: #000;
+  border-color: #000000;
+  box-shadow: 0 4px 16px rgba(127,255,249,0.18);
+}
+
+body.dark-mode .contact-btn {
+  background: var(--btn-bg-dark);
+  color: var(--text-dark);
+  border: 1px solid var(--border-dark);
+}
+
+body.dark-mode .contact-btn:hover {
+  background: var(--highlight-dark);
+  color: #000;
+  border-color: #ffffff;
+}
+
 /* ───────── Layout Containers ───────── */
 .container {
   display: flex;
