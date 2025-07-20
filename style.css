@@ -207,9 +207,9 @@ body.dark-mode .left h3 {
   position: absolute;
   width: 180px;
   height: 2px;
-  background: linear-gradient(90deg, #7ffff9, rgba(127, 255, 249, 0.3));
+  background: linear-gradient(90deg, #000000, rgba(0, 144, 137, 0.3));
   transform-origin: left center;
-  box-shadow: 0 0 5px rgba(127, 255, 249, 0.5);
+  box-shadow: 0 0 5px rgba(0, 234, 255, 0.5);
 }
 
 .spoke-label {
@@ -219,14 +219,66 @@ body.dark-mode .left h3 {
   transform: translateY(-50%);
   font-size: 18px;
   font-weight: 400;
-  color: #7ffff9;
-  text-shadow: 0 0 8px rgba(127, 255, 249, 0.6);
-  transition: all 0.3s ease;
+  color: #000000;
+  text-shadow: 0 0 8px rgba(112, 187, 201, 0.6);
+  transition: all 0.3s, color 0.3s, text-shadow 0.3s;
   white-space: nowrap;
   pointer-events: auto;
   text-decoration: none;
   cursor: pointer;
   display: block;
+}
+
+/* Dark mode overrides */
+body.dark-mode .spoke-line {
+  background: linear-gradient(90deg, #39ff14, rgba(57, 255, 20, 0.3));
+  box-shadow: 0 0 8px #39ff14;
+}
+
+body.dark-mode .spoke-label {
+  color: #39ff14;
+  text-shadow: 0 0 10px #39ff14;
+}
+
+/* Hover and active states */
+.spoke-label:hover {
+  color: rgba(127, 255, 249, 1);
+  text-shadow: 0 0 12px rgba(127, 255, 249, 0.8);
+}
+
+body.dark-mode .spoke-label:hover {
+  color: #fff;
+  text-shadow: 0 0 16px #39ff14;
+}
+
+.spoke.active .spoke-label {
+  color: rgba(127, 255, 249, 1);
+  text-shadow: 0 0 15px rgba(127, 255, 249, 1);
+}
+
+body.dark-mode .spoke.active .spoke-label {
+  color: #fff;
+  text-shadow: 0 0 20px #39ff14;
+}
+
+.spoke:hover .spoke-line {
+  box-shadow: 0 0 10px rgba(127, 255, 249, 0.8);
+  background: linear-gradient(90deg, #7ffff9, rgba(127, 255, 249, 0.5));
+}
+
+body.dark-mode .spoke:hover .spoke-line {
+  box-shadow: 0 0 16px #39ff14;
+  background: linear-gradient(90deg, #39ff14, rgba(57, 255, 20, 0.5));
+}
+
+.spoke.active .spoke-line {
+  box-shadow: 0 0 15px rgba(127, 255, 249, 1);
+  background: linear-gradient(90deg, #ffffff, #7ffff9);
+}
+
+body.dark-mode .spoke.active .spoke-line {
+  box-shadow: 0 0 24px #39ff14;
+  background: linear-gradient(90deg, #fff, #39ff14);
 }
 
 .spoke-label:hover {
