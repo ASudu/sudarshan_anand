@@ -228,10 +228,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // Toggle theme on button click
   toggleBtn.addEventListener('click', () => {
     const darkNow = document.body.classList.toggle('dark-mode');
+
+    // Update icon name based on new theme
     const newIcon = darkNow ? 'sun' : 'moon';
-    icon.setAttribute('data-lucide', newIcon);
-    localStorage.setItem('theme', darkNow ? 'dark' : 'light');
+
+    // Replace icon element entirely to force Lucide re-render
+    icon.outerHTML = `<i id="themeIcon" data-lucide="${newIcon}"></i>`;
+
+    // Get the newly replaced icon
+    const newIconEl = document.getElementById('themeIcon');
+
+    // Re-render the Lucide icon
     lucide.createIcons();
+
+    // Save new theme in localStorage
+    localStorage.setItem('theme', darkNow ? 'dark' : 'light');
   });
   
   // Create a new instance to set up the navigation wheel
