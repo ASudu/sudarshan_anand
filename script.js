@@ -230,11 +230,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const darkNow = document.body.classList.toggle('dark-mode');
     const newIcon = darkNow ? 'sun' : 'moon';
 
-    // Replace icon element entirely to force Lucide re-render
-    icon.outerHTML = `<i id="themeIcon" data-lucide="${newIcon}"></i>`;
-
-    // Update the icon reference to the new element
-    icon = document.getElementById('themeIcon');
+    // Just update the data-lucide attribute
+    icon.setAttribute('data-lucide', newIcon);
 
     // Re-render the Lucide icon
     lucide.createIcons();
