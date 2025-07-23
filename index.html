@@ -13,60 +13,74 @@
   <button id="themeToggle" aria-label="Toggle theme">
     <i id="themeIcon" data-lucide="moon"></i>
   </button>
-  <div class="container">
-    <div class="left">
-      <div id="content">
-        <div id="home-content" class="page-content active">
-          <h2>Hey,<br>I'm Sudarshan Anand</h2>
-          <div class="contact-methods">
-            <a class="contact-btn" href="mailto:sanand315@gatech.edu" target="_blank">
-              <i data-lucide="mail"></i> Email
-            </a>
-            <a class="contact-btn" href="https://www.linkedin.com/in/sudarshan-anand-360535211/" target="_blank">
-              <i data-lucide="linkedin"></i> LinkedIn
-            </a>
-            <a class="contact-btn" href="https://github.com/ASudu" target="_blank">
-              <i data-lucide="github"></i> GitHub
-            </a>
-            <a class="contact-btn" href="https://scholar.google.com/citations?user=0hOXk24AAAAJ&hl=en" target="_blank">
-              <i data-lucide="graduation-cap"></i> Google Scholar
-            </a>
-          </div>
-        </div>
-      </div>
+
+  <!-- Landing page -->
+  <section class="hero-section" id="hero">
+    <div class="hero-content">
+      <h1>SUDARSHAN<br>ANAND</h1>
+      <button class="scroll-down" onclick="scrollToMain()">↓</button>
     </div>
-    <div class="right">
-      <div class="mindmap">
-        <div class="center-wrapper">
-          <img src="assets/images/sudarshan_profile.svg" class="center-image" id="profileImage" />
-        </div>
-        <div class="rotation-wrapper" id="rotationWrapper">
-          <div class="spoke-system" id="spokeSystem">
-            <div class="spoke active" data-angle="180" data-page="home">
-              <div class="spoke-line"></div>
-              <a class="spoke-label" href="index.html">Home</a>
-            </div>
-            <div class="spoke" data-angle="108" data-page="blog">
-              <div class="spoke-line"></div>
-              <a class="spoke-label" href="blog.html">Blog</a>
-            </div>
-            <div class="spoke" data-angle="36" data-page="contact">
-              <div class="spoke-line"></div>
-              <a class="spoke-label" href="contact.html">Contact</a>
-            </div>
-            <div class="spoke" data-angle="252" data-page="projects">
-              <div class="spoke-line"></div>
-              <a class="spoke-label" href="projects.html">Projects</a>
-            </div>
-            <div class="spoke" data-angle="324" data-page="publications">
-              <div class="spoke-line"></div>
-              <a class="spoke-label" href="publications.html">Publications</a>
+  </section>
+
+  <section class="main-section" id="mainContent">
+    <div class="container">
+      <!-- About me -->
+      <div class="left">
+        <div id="content">
+          <div id="home-content" class="page-content active">
+            <h2>Hey,<br>I'm Sudarshan Anand</h2>
+            <div class="contact-methods">
+              <a class="contact-btn" href="mailto:sanand315@gatech.edu" target="_blank">
+                <i data-lucide="mail"></i> Email
+              </a>
+              <a class="contact-btn" href="https://www.linkedin.com/in/sudarshan-anand-360535211/" target="_blank">
+                <i data-lucide="linkedin"></i> LinkedIn
+              </a>
+              <a class="contact-btn" href="https://github.com/ASudu" target="_blank">
+                <i data-lucide="github"></i> GitHub
+              </a>
+              <a class="contact-btn" href="https://scholar.google.com/citations?user=0hOXk24AAAAJ&hl=en" target="_blank">
+                <i data-lucide="graduation-cap"></i> Google Scholar
+              </a>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Tab navigation -->
+      <div class="right">
+        <div class="mindmap">
+          <div class="center-wrapper">
+            <img src="assets/images/sudarshan_profile.svg" class="center-image" id="profileImage" />
+          </div>
+          <div class="rotation-wrapper" id="rotationWrapper">
+            <div class="spoke-system" id="spokeSystem">
+              <div class="spoke active" data-angle="180" data-page="home">
+                <div class="spoke-line"></div>
+                <a class="spoke-label" href="index.html">Home</a>
+              </div>
+              <div class="spoke" data-angle="108" data-page="blog">
+                <div class="spoke-line"></div>
+                <a class="spoke-label" href="blog.html">Blog</a>
+              </div>
+              <div class="spoke" data-angle="36" data-page="contact">
+                <div class="spoke-line"></div>
+                <a class="spoke-label" href="contact.html">Contact</a>
+              </div>
+              <div class="spoke" data-angle="252" data-page="projects">
+                <div class="spoke-line"></div>
+                <a class="spoke-label" href="projects.html">Projects</a>
+              </div>
+              <div class="spoke" data-angle="324" data-page="publications">
+                <div class="spoke-line"></div>
+                <a class="spoke-label" href="publications.html">Publications</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
   <script src="script.js"></script>
   <footer>
     <p style="font-size: 0.75rem; justify-content: center;">© 2025 Sudarshan Anand</p>
