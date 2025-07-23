@@ -210,6 +210,14 @@ class FerrisWheelNavigation {
   }
 }
 
+// Smoothly scroll to the main content section
+function scrollToMain() {
+  const mainSection = document.getElementById('mainContent');
+  if (mainSection) {
+    mainSection.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
 // Initialize FerrisWheelNavigation when DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
   // Log for debugging purposes

@@ -143,6 +143,63 @@ body.dark-mode .hero-section {
   color: #000;
 }
 
+/* ───────── Explore More Button ───────── */
+.hero-bottom-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 2.5rem;
+  padding: 0.5em 1.5em;
+  font-size: 1.15rem;
+  font-family: inherit;
+  font-weight: 600;
+  border: 2px solid var(--theme-border-color);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--theme-icon-color);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  box-shadow: none;
+}
+
+.hero-bottom-btn i {
+  width: 1.3em;
+  height: 1.3em;
+  color: var(--theme-icon-color);
+  transition: color 0.2s;
+}
+
+.hero-bottom-btn:hover {
+  background: var(--theme-icon-color);
+  color: var(--bg-light);
+  border-color: var(--theme-icon-color);
+}
+
+.hero-bottom-btn:hover i {
+  color: var(--bg-light);
+}
+
+/* Dark mode styles */
+body.dark-mode .hero-bottom-btn {
+  border: 2px solid var(--theme-border-color);
+  color: var(--theme-icon-color);
+  background: transparent;
+}
+
+body.dark-mode .hero-bottom-btn i {
+  color: var(--theme-icon-color);
+}
+
+body.dark-mode .hero-bottom-btn:hover {
+  background: var(--theme-icon-color);
+  color: var(--bg-dark);
+  border-color: var(--theme-icon-color);
+}
+
+body.dark-mode .hero-bottom-btn:hover i {
+  color: var(--bg-dark);
+}
+
 /* Main Section containing Ferris Wheel */
 .main-section {
   min-height: 100vh;
