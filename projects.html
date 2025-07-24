@@ -13,56 +13,70 @@
   <button id="themeToggle" aria-label="Toggle theme">
     <i id="themeIcon" data-lucide="moon"></i>
   </button>
-  <div class="container">
-    <div class="left">
-      <div id="content">
-        <div id="projects-content" class="page-content active">
-          <h2>Projects</h2>
-          <p>Here are some of my featured projects.</p>
-          <div class="project-list">
-            <div class="project">
-              <h3>AI for Medical Imaging</h3>
-              <p>Deep learning project on fibrosis detection in CT scans.</p>
 
-              <h3>Graph-based Pandemic Modeling</h3>
-              <p>Simulating competition between viral strains using network theory.</p>
+  <!-- Landing page -->
+  <section class="hero-section" id="hero">
+    <div class="hero-content">
+      <h1>SUDARSHAN<br>ANAND</h1>
+      <button class="hero-bottom-btn" onclick="scrollToMain()" aria-label="Scroll to main content">
+        <span>Explore More</span>
+        <i data-lucide="arrow-down-circle" style="vertical-align: middle; margin-left: 0.5em;"></i>
+      </button>
+    </div>
+  </section>
+
+  <section class="page-content" id="mainContent">
+    <div class="container">
+      <div class="left">
+        <div id="content">
+          <div id="projects-content" class="page-content active">
+            <h2>Projects</h2>
+            <p>Here are some of my featured projects.</p>
+            <div class="project-list">
+              <div class="project">
+                <h3>AI for Medical Imaging</h3>
+                <p>Deep learning project on fibrosis detection in CT scans.</p>
+
+                <h3>Graph-based Pandemic Modeling</h3>
+                <p>Simulating competition between viral strains using network theory.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="mindmap">
+          <div class="center-wrapper">
+            <img src="assets/images/sudarshan_profile.svg" class="center-image" id="profileImage" />
+          </div>
+          <div class="rotation-wrapper" id="rotationWrapper">
+            <div class="spoke-system" id="spokeSystem">
+              <div class="spoke" data-angle="180" data-page="home">
+                <div class="spoke-line"></div>
+                <a class="spoke-label" href="index.html">Home</a>
+              </div>
+              <div class="spoke" data-angle="108" data-page="blog">
+                <div class="spoke-line"></div>
+                <a class="spoke-label" href="blog.html">Blog</a>
+              </div>
+              <div class="spoke" data-angle="36" data-page="contact">
+                <div class="spoke-line"></div>
+                <a class="spoke-label" href="contact.html">Contact</a>
+              </div>
+              <div class="spoke active" data-angle="252" data-page="projects">
+                <div class="spoke-line"></div>
+                <a class="spoke-label" href="projects.html">Projects</a>
+              </div>
+              <div class="spoke" data-angle="324" data-page="publications">
+                <div class="spoke-line"></div>
+                <a class="spoke-label" href="publications.html">Publications</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="right">
-      <div class="mindmap">
-        <div class="center-wrapper">
-          <img src="assets/images/sudarshan_profile.svg" class="center-image" id="profileImage" />
-        </div>
-        <div class="rotation-wrapper" id="rotationWrapper">
-          <div class="spoke-system" id="spokeSystem">
-            <div class="spoke" data-angle="180" data-page="home">
-              <div class="spoke-line"></div>
-              <a class="spoke-label" href="index.html">Home</a>
-            </div>
-            <div class="spoke" data-angle="108" data-page="blog">
-              <div class="spoke-line"></div>
-              <a class="spoke-label" href="blog.html">Blog</a>
-            </div>
-            <div class="spoke" data-angle="36" data-page="contact">
-              <div class="spoke-line"></div>
-              <a class="spoke-label" href="contact.html">Contact</a>
-            </div>
-            <div class="spoke active" data-angle="252" data-page="projects">
-              <div class="spoke-line"></div>
-              <a class="spoke-label" href="projects.html">Projects</a>
-            </div>
-            <div class="spoke" data-angle="324" data-page="publications">
-              <div class="spoke-line"></div>
-              <a class="spoke-label" href="publications.html">Publications</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </section>
   <script src="script.js"></script>
   <footer>
     <p style="font-size: 0.75rem; justify-content: center;">© 2025 Sudarshan Anand</p>

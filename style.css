@@ -39,7 +39,7 @@ html {
 body {
   margin: 0;
   height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
   font-family: 'Courier New', Courier, monospace;
   
   background: var(--bg-gradient-light);
@@ -56,7 +56,6 @@ body {
 body.dark-mode {
   background: var(--bg-gradient-dark);
   background-color: var(--bg-dark);
-  background-blend-mode: screen;
   
   color: var(--text-dark);
   
@@ -170,9 +169,9 @@ body.dark-mode .hero-section {
 }
 
 .hero-bottom-btn:hover {
-  background: var(--theme-icon-color);
+  background: var(--theme-btn-bg);
   color: var(--bg-light);
-  border-color: var(--theme-icon-color);
+  border-color: var(--theme-border-color);
 }
 
 .hero-bottom-btn:hover i {
@@ -193,13 +192,13 @@ body.dark-mode .hero-bottom-btn i {
 }
 
 body.dark-mode .hero-bottom-btn:hover {
-  background: var(--theme-icon-color);
+  background: var(--theme-btn-bg);
   color: var(--bg-dark);
-  border-color: var(--theme-icon-color);
+  border-color: var(--theme-border-color);
 }
 
 body.dark-mode .hero-bottom-btn:hover i {
-  color: var(--bg-dark);
+  color: var(--theme-btn-bg);
 }
 
 /* Main Section containing Ferris Wheel */
