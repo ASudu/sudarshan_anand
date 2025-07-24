@@ -218,10 +218,64 @@ function scrollToMain() {
   }
 }
 
+// Smoothly scroll to the hero section
+function scrollToHero() {
+  const heroSection = document.getElementById('hero');
+  if (heroSection) {
+    heroSection.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+// Listen for wheel events to scroll between hero and main content
+function handleWheelScroll(e) {
+  const heroSection = document.getElementById('hero');
+  const mainSection = document.getElementById('mainContent');
+  const scrollY = window.scrollY || window.pageYOffset;
+
+  // Only trigger if at the top (hero) or at the main section
+  if (e.deltaY > 0 && heroSection && isInViewport(heroSection)) {
+    // Scroll down from hero to main
+    scrollToMain();
+    e.preventDefault();
+  } else if (e.deltaY < 0 && mainSection && isInViewport(mainSection)) {
+    // Scroll up from main to hero
+    scrollToHero();
+    e.preventDefault();
+  }
+}
+
+// Utility to check if an element is in the viewport
+function isInViewport(element) {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+  );
+}
+
 // Initialize FerrisWheelNavigation when DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
   // Log for debugging purposes
   console.log('DOM loaded, initializing navigation...');
+
+  // Attach wheel event for smooth section scrolling
+  window.addEventListener('wheel', handleWheelScroll, { passive: false });
+
+  // Optionally, allow touchpad/trackpad swipe on mobile
+  let touchStartY = null;
+  window.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) touchStartY = e.touches[0].clientY;
+  });
+  window.addEventListener('touchend', (e) => {
+    if (touchStartY === null) return;
+    const touchEndY = e.changedTouches[0].clientY;
+    const deltaY = touchStartY - touchEndY;
+    if (Math.abs(deltaY) > 50) {
+      if (deltaY > 0) scrollToMain();
+      else scrollToHero();
+    }
+    touchStartY = null;
+  });
 
   const toggleBtn = document.getElementById('themeToggle');
   let icon = document.getElementById('themeIcon'); // Use 'let' so we can reassign

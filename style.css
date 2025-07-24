@@ -187,7 +187,9 @@ body.dark-mode .hero-bottom-btn {
 }
 
 body.dark-mode .hero-bottom-btn i {
-  color: var(--theme-icon-color);
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid #fff;
 }
 
 body.dark-mode .hero-bottom-btn:hover {
